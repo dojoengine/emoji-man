@@ -1,4 +1,4 @@
-use dojo_examples::models::{Position, Direction};
+use emojiman::models::{Position, Direction};
 
 fn next_position(mut position: Position, direction: Direction) -> Position {
     match direction {
