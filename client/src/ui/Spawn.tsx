@@ -3,7 +3,6 @@ import { RPSSprites } from "../phaser/config/constants";
 import { ClickWrapper } from "./ClickWrapper";
 import { Button } from "../components/ui/button";
 import { useUIStore } from "../store/store";
-import { useEffect } from "react";
 
 export const Spawn = () => {
     const setLoggedIn = useUIStore((state: any) => state.setLoggedIn);

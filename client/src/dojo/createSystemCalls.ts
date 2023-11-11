@@ -78,10 +78,10 @@ export function createSystemCalls(
 
         console.log(signer);
 
-        const playerId = getComponentValue(
-            PlayerID,
-            signer.address.toString() as Entity
-        );
+        // const playerId = getComponentValue(
+        //     PlayerID,
+        //     signer.address.toString() as Entity
+        // );
 
         // const currentPosition = getComponentValue(
         //     Position,

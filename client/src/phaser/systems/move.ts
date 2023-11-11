@@ -22,7 +22,7 @@ export const move = (layer: PhaserLayer) => {
             Main: { objectPool, camera },
         },
         networkLayer: {
-            components: { Position, RPSType, PlayerID },
+            components: { Position, RPSType },
         },
     } = layer;
 
