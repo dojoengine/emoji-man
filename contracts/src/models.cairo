@@ -22,23 +22,6 @@ impl DirectionIntoFelt252 of Into<Direction, felt252> {
     }
 }
 
-#[derive(Serde, Copy, Drop, PartialEq, Introspect)]
-enum RPS {
-    Rock,
-    Paper,
-    Scissors
-}
-
-impl RPSPrintImpl of PrintTrait<RPS> {
-    fn print(self: RPS) {
-        match self {
-            RPS::Rock => 'Rock'.print(),
-            RPS::Paper => 'Paper'.print(),
-            RPS::Scissors => 'Scissors'.print(),
-        }
-    }
-}
-
 const GAME_DATA_KEY: felt252 = 'game';
 
 #[derive(Copy, Drop, Serde, Introspect)]
@@ -68,7 +51,7 @@ struct Position {
 struct RPSType {
     #[key]
     id: u8,
-    rps: RPS,
+    rps: u8,
 }
 
 #[derive(Model, Copy, Drop, Serde)]

@@ -10,12 +10,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "dojo_examples"
-version = "0.3.7"
+name = "dojo_plugin"
+version = "0.3.10"
+
+[[package]]
+name = "emojiman"
+version = "0.1.0"
 dependencies = [
  "dojo",
 ]
-
-[[package]]
-name = "dojo_plugin"
-version = "0.3.10"
