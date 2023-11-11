@@ -1,4 +1,4 @@
-use dojo_examples::models::{Direction, RPS};
+use emojiman::models::{Direction};
 
 const INITIAL_ENERGY: u8 = 255;
 const RENEWED_ENERGY: u8 = 3;
@@ -11,7 +11,7 @@ const Y_ORIGIN: u8 = 100; // These can be same as position
 // define the interface
 #[starknet::interface]
 trait IActions<TContractState> {
-    fn spawn(self: @TContractState, rps: RPS);
+    fn spawn(self: @TContractState, rps: u8);
     fn move(self: @TContractState, dir: Direction);
     fn tick(self: @TContractState);
 }
@@ -21,11 +21,11 @@ trait IActions<TContractState> {
 mod actions {
     use starknet::{ContractAddress, get_caller_address};
     use debug::PrintTrait;
-    use dojo_examples::models::{
-        GAME_DATA_KEY, GameData, Direction, RPS, RPSPrintImpl, Vec2, Position, PlayerAtPosition,
-        RPSType, Energy, PlayerID, PlayerAddress
+    use emojiman::models::{
+        GAME_DATA_KEY, GameData, Direction, Vec2, Position, PlayerAtPosition, RPSType, Energy,
+        PlayerID, PlayerAddress
     };
-    use dojo_examples::utils::next_position;
+    use emojiman::utils::next_position;
     use super::{
         INITIAL_ENERGY, RENEWED_ENERGY, MOVE_ENERGY_COST, X_RANGE, Y_RANGE, X_ORIGIN, Y_ORIGIN,
         IActions
@@ -73,8 +73,8 @@ mod actions {
     // if the player kills the other player returns true
     fn encounter(world: IWorldDispatcher, player: u8, adversary: u8) -> bool {
         let adv_type = get!(world, adversary, (RPSType)).rps;
-        let ply_type = get!(world, player, (RPSType)).rps;
-        if encounter_type(ply_type, adv_type) {
+        let ply_type = get!(world, adversary, (RPSType)).rps;
+        if encounter_win(ply_type, adv_type) {
             // adversary dies
             player_dead(world, adversary);
             true
@@ -85,11 +85,11 @@ mod actions {
         }
     }
 
-    fn encounter_type(ply_type: RPS, adv_type: RPS) -> bool {
+    fn encounter_win(ply_type: u8, adv_type: u8) -> bool {
         assert(adv_type != ply_type, 'occupied by same type');
-        if (ply_type == RPS::Rock && adv_type == RPS::Scissors)
-            || (ply_type == RPS::Paper && adv_type == RPS::Rock)
-            || (ply_type == RPS::Scissors && adv_type == RPS::Paper) {
+        if (ply_type == 'r' && adv_type == 's')
+            || (ply_type == 'p' && adv_type == 'r')
+            || (ply_type == 's' && adv_type == 'p') {
             return true;
         }
         false
@@ -126,7 +126,7 @@ mod actions {
     #[external(v0)]
     impl ActionsImpl of IActions<ContractState> {
         // Spawns the player on to the map
-        fn spawn(self: @ContractState, rps: RPS) {
+        fn spawn(self: @ContractState, rps: u8) {
             let world = self.world_dispatcher.read();
             let player = get_caller_address();
 
@@ -193,12 +193,11 @@ mod tests {
     use dojo::test_utils::{spawn_test_world, deploy_contract};
 
     // import models
-    use dojo_examples::models::{
+    use emojiman::models::{
         position, player_at_position, rps_type, energy, player_id, player_address,
     };
-    use dojo_examples::models::{
-        Position, RPSType, Energy, Direction, RPS, RPSPrintImpl, Vec2, PlayerAtPosition, PlayerID,
-        PlayerAddress,
+    use emojiman::models::{
+        Position, RPSType, Energy, Direction, Vec2, PlayerAtPosition, PlayerID, PlayerAddress,
     };
 
     // import actions
@@ -236,7 +235,7 @@ mod tests {
     fn spawn_test() {
         let (caller, world, actions_) = init();
 
-        actions_.spawn(RPS::Rock);
+        actions_.spawn('r');
 
         // Get player ID
         let player_id = get!(world, caller, (PlayerID)).id;
@@ -246,7 +245,7 @@ mod tests {
         let (position, rps_type, energy) = get!(world, player_id, (Position, RPSType, Energy));
         assert(0 < position.x, 'incorrect position.x');
         assert(0 < position.y, 'incorrect position.y');
-        assert(RPS::Rock == rps_type.rps, 'incorrect rps');
+        assert('r' == rps_type.rps, 'incorrect rps');
         assert(INITIAL_ENERGY == energy.amt, 'incorrect energy');
     }
 
@@ -255,7 +254,7 @@ mod tests {
     fn dead_test() {
         let (caller, world, actions_) = init();
 
-        actions_.spawn(RPS::Rock);
+        actions_.spawn('r');
         // Get player ID
         let player_id = get!(world, caller, (PlayerID)).id;
         actions::player_dead(world, player_id);
@@ -272,13 +271,13 @@ mod tests {
     fn random_spawn_test() {
         let (caller, world, actions_) = init();
 
-        actions_.spawn(RPS::Rock);
+        actions_.spawn('r');
         // Get player ID
         let pos_p1 = get!(world, get!(world, caller, (PlayerID)).id, (Position));
 
         let caller = starknet::contract_address_const::<'jim'>();
         starknet::testing::set_contract_address(caller);
-        actions_.spawn(RPS::Rock);
+        actions_.spawn('r');
         // Get player ID
         let pos_p2 = get!(world, get!(world, caller, (PlayerID)).id, (Position));
 
@@ -308,7 +307,7 @@ mod tests {
     fn moves_test() {
         let (caller, world, actions_) = init();
 
-        actions_.spawn(RPS::Rock);
+        actions_.spawn('r');
 
         // Get player ID
         let player_id = get!(world, caller, (PlayerID)).id;
@@ -330,7 +329,7 @@ mod tests {
     fn player_at_position_test() {
         let (caller, world, actions_) = init();
 
-        actions_.spawn(RPS::Rock);
+        actions_.spawn('r');
 
         // Get player ID
         let player_id = get!(world, caller, (PlayerID)).id;
@@ -354,38 +353,36 @@ mod tests {
         assert(actions::player_at_position(world, x, y) == player_id, 'player should be at pos');
     }
 
-    use RPS::{Rock, Paper, Scissors};
-
     #[test]
     #[available_gas(30000000)]
     fn encounter_test() {
         let (caller, world, actions_) = init();
-        assert(false == actions::encounter_type(RPS::Rock, RPS::Paper), 'R v P should lose');
-        assert(true == actions::encounter_type(RPS::Rock, RPS::Scissors), 'R v S should win');
-        assert(false == actions::encounter_type(RPS::Scissors, RPS::Rock), 'S v R should lose');
-        assert(true == actions::encounter_type(RPS::Scissors, RPS::Paper), 'S v P should win');
-        assert(false == actions::encounter_type(RPS::Paper, RPS::Scissors), 'P v S should lose');
-        assert(true == actions::encounter_type(RPS::Paper, RPS::Rock), 'P v R should win');
+        assert(false == actions::encounter_win('r', 'p'), 'R v P should lose');
+        assert(true == actions::encounter_win('r', 's'), 'R v S should win');
+        assert(false == actions::encounter_win('s', 'r'), 'S v R should lose');
+        assert(true == actions::encounter_win('s', 'p'), 'S v P should win');
+        assert(false == actions::encounter_win('p', 's'), 'P v S should lose');
+        assert(true == actions::encounter_win('p', 'r'), 'P v R should win');
     }
 
     #[test]
     #[available_gas(2000000)]
     #[should_panic()]
     fn encounter_rock_tie_panic() {
-        actions::encounter_type(RPS::Rock, RPS::Rock);
+        actions::encounter_win('r', 'r');
     }
 
     #[test]
     #[available_gas(2000000)]
     #[should_panic()]
     fn encounter_paper_tie_panic() {
-        actions::encounter_type(RPS::Paper, RPS::Paper);
+        actions::encounter_win('p', 'p');
     }
 
     #[test]
     #[available_gas(2000000)]
     #[should_panic()]
     fn encounter_scissor_tie_panic() {
-        actions::encounter_type(RPS::Scissors, RPS::Scissors);
+        actions::encounter_win('s', 's');
     }
 }
