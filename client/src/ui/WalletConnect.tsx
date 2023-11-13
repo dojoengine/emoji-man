@@ -5,9 +5,7 @@ export const WalletConnect = () => {
     return (
         <ClickWrapper>
             <div className="flex space-x-3 justify-between p-2 flex-wrap">
-                <div>
-                    <Spawn />
-                </div>
+                <Spawn />
             </div>
         </ClickWrapper>
     );

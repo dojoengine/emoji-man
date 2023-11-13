@@ -12,6 +12,8 @@ export enum Animations {
     ScissorsIdle = "ScissorsIdle",
 }
 
+// image addresses
+
 export enum Sprites {
     Soldier,
 }
@@ -21,6 +23,12 @@ export enum RPSSprites {
     Paper,
     Scissors,
 }
+
+export const ImagePaths: { [key in RPSSprites]: string } = {
+    [RPSSprites.Rock]: "rock.png",
+    [RPSSprites.Paper]: "paper.png",
+    [RPSSprites.Scissors]: "scissors.png",
+};
 
 export enum Assets {
     MainAtlas = "MainAtlas",

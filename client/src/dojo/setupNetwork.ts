@@ -15,7 +15,6 @@ export async function setupNetwork() {
         VITE_PUBLIC_TORII,
     } = import.meta.env;
 
-    // Create a new RPCProvider instance.
     const provider = new RPCProvider(
         VITE_PUBLIC_WORLD_ADDRESS,
         manifest,
