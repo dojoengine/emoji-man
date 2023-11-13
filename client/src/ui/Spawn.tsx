@@ -3,33 +3,34 @@ import { RPSSprites } from "../phaser/config/constants";
 import { ClickWrapper } from "./ClickWrapper";
 import { Button } from "../components/ui/button";
 import { useUIStore } from "../store/store";
+import { useEffect } from "react";
 
 export const Spawn = () => {
     const setLoggedIn = useUIStore((state: any) => state.setLoggedIn);
     const {
-        account: { account },
+        account: { account, isDeploying, list, select },
         systemCalls: { spawn },
     } = useDojo();
 
-    // useEffect(() => {
-    //     if (isDeploying) {
-    //         return;
-    //     }
+    useEffect(() => {
+        if (isDeploying) {
+            return;
+        }
 
-    //     if (account) {
-    //         return;
-    //     }
+        if (account) {
+            return;
+        }
 
-    //     (async () => {
-    //         const accounts = await list();
+        (async () => {
+            const accounts = await list();
 
-    //         if (accounts.length === 0) {
-    //             await create();
-    //         } else {
-    //             await select(accounts[0].address);
-    //         }
-    //     })();
-    // }, [account]);
+            if (accounts.length === 0) {
+                // await create();
+            } else {
+                await select(accounts[0].address);
+            }
+        })();
+    }, [account]);
 
     if (!account) {
         return <div>Deploying...</div>;

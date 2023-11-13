@@ -18,7 +18,11 @@ export const createBurner = async () => {
         rpcProvider,
     });
 
-    burnerManager.create();
+    try {
+        await burnerManager.create();
+    } catch (e) {
+        console.log(e);
+    }
 
     burnerManager.init();
 
