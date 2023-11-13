@@ -5,8 +5,8 @@ const RENEWED_ENERGY: u8 = 3;
 const MOVE_ENERGY_COST: u8 = 1;
 const X_RANGE: u128 = 50; // These need to be u128
 const Y_RANGE: u128 = 50; // These need to be u128
-const X_ORIGIN: u8 = 100; // These can be same as position
-const Y_ORIGIN: u8 = 100; // These can be same as position
+const X_ORIGIN: u8 = 0; // Origin offset
+const Y_ORIGIN: u8 = 0; // Origin offset
 
 // define the interface
 #[starknet::interface]
@@ -135,7 +135,16 @@ mod actions {
             let number_of_players = game_data.number_of_players; // id starts at 1
             set!(world, (game_data));
 
-            let id = assign_player_id(world, number_of_players, player);
+            let mut id = get!(world, player, (PlayerID)).id;
+
+            if id == 0 {
+                // Player not already spawned, prepare ID to assign
+                id = assign_player_id(world, number_of_players, player);
+            } else {
+                // Player already exists, clear old position for new spawn
+                let pos = get!(world, id, (Position));
+                clear_player_at_position(world, pos.x, pos.y);
+            }
 
             set!(world, (RPSType { id, rps }));
 
@@ -159,6 +168,13 @@ mod actions {
             clear_player_at_position(world, pos.x, pos.y);
 
             let Position{id, x, y } = next_position(pos, dir);
+
+            let max_x: felt252 = X_ORIGIN.into() + X_RANGE.into();
+            let max_y: felt252 = Y_ORIGIN.into() + Y_RANGE.into();
+
+            assert(
+                x <= max_x.try_into().unwrap() && y <= max_y.try_into().unwrap(), 'Out of bounds'
+            );
 
             let adversary = player_at_position(world, x, y);
             if 0 == adversary {
