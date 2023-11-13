@@ -22,6 +22,7 @@
         "@latticexyz/phaserx": "^2.0.0-next.14",
         "@latticexyz/utils": "^2.0.0-next.14",
         "@radix-ui/react-slot": "^1.0.2",
+        "alea": "^1.0.1",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.0.0",
         "ethers": "^5.7.2",
