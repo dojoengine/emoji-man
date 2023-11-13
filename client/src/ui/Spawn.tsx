@@ -27,7 +27,7 @@ export const Spawn = () => {
             if (accounts.length === 0) {
                 // await create();
             } else {
-                await select(accounts[0].address);
+                // await select();
             }
         })();
     }, [account]);
