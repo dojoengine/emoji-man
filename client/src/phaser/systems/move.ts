@@ -28,49 +28,46 @@ export const move = (layer: PhaserLayer) => {
         },
     } = layer;
 
-    defineEnterSystem(
-        world,
-        [Has(Position), Has(RPSType)],
-        ({ entity }: any) => {
-            const playerObj = objectPool.get(entity.toString(), "Sprite");
+    defineSystem(world, [Has(Position), Has(RPSType)], ({ entity }: any) => {
+        const rpsType = getComponentValueStrict(
+            RPSType,
+            entity.toString() as Entity
+        );
 
-            const type = getComponentValue(
-                RPSType,
-                entity.toString() as Entity
-            );
-
-            console.log("defineEnterSystem", type);
-
-            let animation = Animations.RockIdle;
-
-            switch (type?.rps) {
-                case RPSSprites.Rock:
-                    animation = Animations.RockIdle;
-                    break;
-                case RPSSprites.Paper:
-                    animation = Animations.PaperIdle;
-                    break;
-                case RPSSprites.Scissors:
-                    animation = Animations.ScissorsIdle;
-                    break;
-            }
-
-            playerObj.setComponent({
-                id: "animation",
-                once: (sprite: any) => {
-                    sprite.play(animation);
-                },
-            });
+        if (!rpsType.rps) {
+            return; // No type no show
         }
-    );
 
-    defineSystem(world, [Has(Position)], ({ entity }: any) => {
         const position = getComponentValueStrict(
             Position,
             entity.toString() as Entity
         );
 
-        const offsetPosition = { x: position?.x, y: position?.y };
+        const entity_uniform = +entity;
+        console.log(entity, entity_uniform, '\n------- pos/type triggered -------\n', position);
+
+        const player = objectPool.get(entity_uniform, "Sprite");
+
+        let animation;
+        switch (String.fromCharCode(rpsType.rps)) {
+            case RPSSprites.Rock:
+                animation = Animations.RockIdle;
+                break;
+            case RPSSprites.Paper:
+                animation = Animations.PaperIdle;
+                break;
+            case RPSSprites.Scissors:
+                animation = Animations.ScissorsIdle;
+                break;
+        }
+
+        player.setComponent({
+            id: "animation",
+            once: (sprite) => {
+                sprite.play(animation);
+            },
+        });
+
         const offsetPosition = { x: position?.x || 0, y: position?.y || 0 };
 
         let entity_addr = entity_addresses[entity_uniform];
@@ -88,11 +85,9 @@ export const move = (layer: PhaserLayer) => {
             TILE_HEIGHT
         );
 
-        const player = objectPool.get(entity, "Sprite");
-
         player.setComponent({
             id: "position",
-            once: (sprite: any) => {
+            once: (sprite) => {
                 sprite.setPosition(pixelPosition?.x, pixelPosition?.y);
                 if (playerAddress == entity_addr) {
                     camera.centerOn(pixelPosition?.x, pixelPosition?.y);
