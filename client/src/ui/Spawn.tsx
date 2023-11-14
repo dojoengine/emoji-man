@@ -1,6 +1,5 @@
 import { useDojo } from "../hooks/useDojo";
 import { ImagePaths, RPSSprites } from "../phaser/config/constants";
-import { ClickWrapper } from "./ClickWrapper";
 import { Button } from "../components/ui/button";
 import { useUIStore } from "../store/store";
 import { useEffect } from "react";
@@ -8,7 +7,7 @@ import { useEffect } from "react";
 export const Spawn = () => {
     const setLoggedIn = useUIStore((state: any) => state.setLoggedIn);
     const {
-        account: { account, isDeploying, list, select },
+        account: { account, isDeploying, list },
         systemCalls: { spawn },
     } = useDojo();
 
@@ -20,16 +19,6 @@ export const Spawn = () => {
         if (account) {
             return;
         }
-
-        (async () => {
-            const accounts = await list();
-
-            if (accounts.length === 0) {
-                // await create();
-            } else {
-                // await select();
-            }
-        })();
     }, [account]);
 
     if (!account) {

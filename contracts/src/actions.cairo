@@ -36,7 +36,7 @@ mod actions {
     fn assign_player_id(world: IWorldDispatcher, num_players: u8, player: ContractAddress) -> u8 {
         let id = num_players;
         set!(world, (PlayerID { player, id }, PlayerAddress { player, id }));
-        return id;
+        id
     }
     // endregion player id assignment
 
