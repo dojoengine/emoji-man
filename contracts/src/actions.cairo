@@ -60,12 +60,20 @@ mod actions {
         let pos = get!(world, id, (Position));
         let empty_player = starknet::contract_address_const::<0>();
 
+        let id_felt: felt252 = id.into();
+        let entity_keys = array![id_felt].span();
         let player = get!(world, id, (PlayerAddress)).player;
+        let player_felt: felt252 = player.into();
         // Remove player address and ID mappings
+        world.delete_entity('PlayerID', array![player_felt].span());
+        world.delete_entity('PlayerAddress', entity_keys);
+
         set!(world, (PlayerID { player, id: 0 }));
 
-        // Empty player address for id
-        player_position_and_energy(world, id, 0, 0, 0);
+        // Remove player rps type
+        world.delete_entity('RPSType', entity_keys);
+        world.delete_entity('Position', entity_keys);
+        world.delete_entity('Energy', entity_keys);
     }
 
     // panics if players are of same type (move cancelled)
