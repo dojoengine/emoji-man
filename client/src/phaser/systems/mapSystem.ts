@@ -16,8 +16,8 @@ export function mapSystem(layer: PhaserLayer) {
 
     const noise = createNoise2D(alea('emojiman_rnd_seed'));
 
-    for (let x = -500; x < 500; x++) {
-        for (let y = -500; y < 500; y++) {
+    for (let x = 0; x < 50; x++) {
+        for (let y = 0; y < 50; y++) {
             const coord = { x, y };
             const seed = noise(x, y);
 
