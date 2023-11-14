@@ -67,7 +67,7 @@ mod actions {
         world.delete_entity('PlayerAddress', entity_keys);
 
         set!(world, (PlayerID { player, id: 0 }));
-        set!(world, (RPSType { id, rps: 0 }, Position { id, x: 0, y: 0 }));
+        set!(world, (Position { id, x: 0, y: 0 }));
 
         // Remove player components
         world.delete_entity('RPSType', entity_keys);
