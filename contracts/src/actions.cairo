@@ -5,8 +5,7 @@ const RENEWED_ENERGY: u8 = 3;
 const MOVE_ENERGY_COST: u8 = 1;
 const X_RANGE: u128 = 50; // These need to be u128
 const Y_RANGE: u128 = 50; // These need to be u128
-const X_ORIGIN: u8 = 0; // Origin offset
-const Y_ORIGIN: u8 = 0; // Origin offset
+const ORIGIN_OFFSET: u8 = 100; // Origin offset
 
 // define the interface
 #[starknet::interface]
@@ -27,8 +26,7 @@ mod actions {
     };
     use emojiman::utils::next_position;
     use super::{
-        INITIAL_ENERGY, RENEWED_ENERGY, MOVE_ENERGY_COST, X_RANGE, Y_RANGE, X_ORIGIN, Y_ORIGIN,
-        IActions
+        INITIAL_ENERGY, RENEWED_ENERGY, MOVE_ENERGY_COST, X_RANGE, Y_RANGE, ORIGIN_OFFSET, IActions
     };
     use integer::{u128s_from_felt252, U128sFromFelt252Result, u128_safe_divmod};
 
@@ -69,8 +67,9 @@ mod actions {
         world.delete_entity('PlayerAddress', entity_keys);
 
         set!(world, (PlayerID { player, id: 0 }));
+        set!(world, (RPSType { id, rps: 0 }, Position { id, x: 0, y: 0 }));
 
-        // Remove player rps type
+        // Remove player components
         world.delete_entity('RPSType', entity_keys);
         world.delete_entity('Position', entity_keys);
         world.delete_entity('Energy', entity_keys);
@@ -117,8 +116,8 @@ mod actions {
             let x_: felt252 = x_.into();
             let y_: felt252 = y_.into();
 
-            x = X_ORIGIN + x_.try_into().unwrap();
-            y = Y_ORIGIN + y_.try_into().unwrap();
+            x = ORIGIN_OFFSET + x_.try_into().unwrap();
+            y = ORIGIN_OFFSET + y_.try_into().unwrap();
             let occupied = player_at_position(world, x, y);
             if occupied == 0 {
                 break;
@@ -179,8 +178,8 @@ mod actions {
 
             let Position{id, x, y } = next_position(pos, dir);
 
-            let max_x: felt252 = X_ORIGIN.into() + X_RANGE.into();
-            let max_y: felt252 = Y_ORIGIN.into() + Y_RANGE.into();
+            let max_x: felt252 = ORIGIN_OFFSET.into() + X_RANGE.into();
+            let max_y: felt252 = ORIGIN_OFFSET.into() + Y_RANGE.into();
 
             assert(
                 x <= max_x.try_into().unwrap() && y <= max_y.try_into().unwrap(), 'Out of bounds'

@@ -10,13 +10,14 @@ import { PhaserLayer } from "..";
 import { tileCoordToPixelCoord } from "@latticexyz/phaserx";
 import {
     Animations,
+    ORIGIN_OFFSET,
     RPSSprites,
     TILE_HEIGHT,
     TILE_WIDTH,
 } from "../config/constants";
 
 export const move = (layer: PhaserLayer) => {
-    const entity_addresses = {};
+    const entity_addresses: { [k: string]: string } = {};
     const {
         world,
         scenes: {
@@ -43,12 +44,12 @@ export const move = (layer: PhaserLayer) => {
             entity.toString() as Entity
         );
 
-        const entity_uniform = +entity;
+        const entity_uniform = (+entity).toString();
         console.log(entity, entity_uniform, '\n------- pos/type triggered -------\n', position);
 
         const player = objectPool.get(entity_uniform, "Sprite");
 
-        let animation;
+        let animation = '';
         switch (String.fromCharCode(rpsType.rps)) {
             case RPSSprites.Rock:
                 animation = Animations.RockIdle;
@@ -68,7 +69,7 @@ export const move = (layer: PhaserLayer) => {
             },
         });
 
-        const offsetPosition = { x: position?.x || 0, y: position?.y || 0 };
+        const offsetPosition = { x: position?.x - ORIGIN_OFFSET || 0, y: position?.y - ORIGIN_OFFSET || 0 };
 
         let entity_addr = entity_addresses[entity_uniform];
         if (!entity_addr) {
@@ -76,7 +77,7 @@ export const move = (layer: PhaserLayer) => {
                 PlayerAddress,
                 entity.toString() as Entity
             );
-            entity_addr = entity_addresses[entity_uniform] = entity_addr_component?.player;
+            entity_addr = entity_addresses[entity_uniform] = entity_addr_component?.player || '';
         }
 
         const pixelPosition = tileCoordToPixelCoord(
