@@ -14,10 +14,12 @@ export async function setupNetwork() {
         VITE_PUBLIC_WORLD_ADDRESS,
         VITE_PUBLIC_NODE_URL,
         VITE_PUBLIC_TORII,
-        VITE_DEV,
+        VITE_PUBLIC_DEV,
     } = import.meta.env;
 
-    const manifest = VITE_DEV === true ? dev_manifest : prod_manifest;
+    const manifest = VITE_PUBLIC_DEV === "true" ? dev_manifest : prod_manifest;
+
+    console.log("Using manifest", manifest);
 
     const provider = new RPCProvider(
         VITE_PUBLIC_WORLD_ADDRESS,
