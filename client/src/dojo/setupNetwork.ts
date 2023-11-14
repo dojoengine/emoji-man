@@ -17,7 +17,7 @@ export async function setupNetwork() {
         VITE_DEV,
     } = import.meta.env;
 
-    const manifest = VITE_DEV === "true" ? dev_manifest : prod_manifest;
+    const manifest = VITE_DEV === true ? dev_manifest : prod_manifest;
 
     const provider = new RPCProvider(
         VITE_PUBLIC_WORLD_ADDRESS,
