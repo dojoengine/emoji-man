@@ -2,7 +2,8 @@ import { defineContractComponents } from "./contractComponents";
 import { world } from "./world";
 import { RPCProvider } from "@dojoengine/core";
 import { Account, num } from "starknet";
-import manifest from "../../../contracts/target/dev/manifest.json";
+import dev_manifest from "../../../contracts/target/dev/manifest.json";
+import prod_manifest from "../../../contracts/target/production/manifest.json";
 import * as torii from "@dojoengine/torii-client";
 import { createBurner } from "./createBurner";
 
@@ -13,7 +14,10 @@ export async function setupNetwork() {
         VITE_PUBLIC_WORLD_ADDRESS,
         VITE_PUBLIC_NODE_URL,
         VITE_PUBLIC_TORII,
+        VITE_DEV,
     } = import.meta.env;
+
+    const manifest = VITE_DEV === "true" ? dev_manifest : prod_manifest;
 
     const provider = new RPCProvider(
         VITE_PUBLIC_WORLD_ADDRESS,
