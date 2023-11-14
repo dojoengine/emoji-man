@@ -16,6 +16,7 @@ import {
 } from "../config/constants";
 
 export const move = (layer: PhaserLayer) => {
+    const entity_addresses = {};
     const {
         world,
         scenes: {
@@ -23,6 +24,7 @@ export const move = (layer: PhaserLayer) => {
         },
         networkLayer: {
             components: { Position, RPSType, PlayerAddress },
+            account: { address: playerAddress }
         },
     } = layer;
 
@@ -69,6 +71,16 @@ export const move = (layer: PhaserLayer) => {
         );
 
         const offsetPosition = { x: position?.x, y: position?.y };
+        const offsetPosition = { x: position?.x || 0, y: position?.y || 0 };
+
+        let entity_addr = entity_addresses[entity_uniform];
+        if (!entity_addr) {
+            const entity_addr_component = getComponentValue(
+                PlayerAddress,
+                entity.toString() as Entity
+            );
+            entity_addr = entity_addresses[entity_uniform] = entity_addr_component?.player;
+        }
 
         const pixelPosition = tileCoordToPixelCoord(
             offsetPosition,
@@ -82,7 +94,9 @@ export const move = (layer: PhaserLayer) => {
             id: "position",
             once: (sprite: any) => {
                 sprite.setPosition(pixelPosition?.x, pixelPosition?.y);
-                camera.centerOn(pixelPosition?.x, pixelPosition?.y);
+                if (playerAddress == entity_addr) {
+                    camera.centerOn(pixelPosition?.x, pixelPosition?.y);
+                }
             },
         });
     });
