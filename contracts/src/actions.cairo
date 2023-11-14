@@ -135,6 +135,8 @@ mod actions {
             let number_of_players = game_data.number_of_players; // id starts at 1
             set!(world, (game_data));
 
+            assert(rps == 'r' || rps == 'p' || rps == 's', 'only r, p or s type allowed');
+
             let mut id = get!(world, player, (PlayerID)).id;
 
             if id == 0 {
