@@ -5,7 +5,6 @@ import {
     defineMapConfig,
     defineCameraConfig,
 } from "@latticexyz/phaserx";
-import landTileset from "../../assets/tilesets/land.png";
 import { TileAnimations, Tileset } from "../../assets/world";
 import {
     Sprites,
@@ -42,15 +41,15 @@ export const phaserConfig = {
                 [Assets.Tileset]: {
                     type: AssetType.Image,
                     key: Assets.Tileset,
-                    path: landTileset,
+                    path: "assets/tilesets/land.png",
                 },
                 [Assets.MainAtlas]: {
                     type: AssetType.MultiAtlas,
                     key: Assets.MainAtlas,
                     // Add a timestamp to the end of the path to prevent caching
-                    path: `src/assets/atlases/atlas.json?timestamp=${Date.now()}`,
+                    path: `assets/atlases/atlas.json?timestamp=${Date.now()}`,
                     options: {
-                        imagePath: "src/assets/atlases/",
+                        imagePath: "assets/atlases/",
                     },
                 },
             },
