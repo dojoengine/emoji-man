@@ -21,6 +21,10 @@ export const createNetworkLayer = async () => {
                 keys: [i.toString()],
             });
             models.push({
+                model: network.contractComponents.PlayerAddress,
+                keys: [i.toString()],
+            });
+            models.push({
                 model: network.contractComponents.PlayerID,
                 keys: [i.toString()],
             });
