@@ -1,6 +1,6 @@
 use emojiman::models::{Direction};
 
-const INITIAL_ENERGY: u8 = 255;
+const INITIAL_ENERGY: u8 = 10;
 const RENEWED_ENERGY: u8 = 3;
 const MOVE_ENERGY_COST: u8 = 1;
 const X_RANGE: u128 = 50; // These need to be u128
