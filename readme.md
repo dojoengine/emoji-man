@@ -2,7 +2,7 @@
 
 Eat to survive workshop.
 
-The project is split into 10 branchs, so you can follow along with the workshop. If you run into issues, checkout of that branch and move to the next one.
+The project is split into branches, so you can follow along with the workshop. If you run into issues, checkout of that branch and move to the next one.
 
 ### Resources:
 
@@ -89,3 +89,18 @@ b. Running a Katana
 c. Deploying to Katana
 d. Deploying a client to vercel
 e. Multiplayer
+
+## Next Steps
+
+### Bonus 1: Optimistc Rendering
+
+- Use RECS optimisc rendering to render the player in the client before the tx is confirmed
+
+### Bonus 2: Show energy levels in the client
+
+- Use RECS to show the energy levels in the client
+
+### Bonus 3: Noise in map in Cairo and in Client
+
+- Use [cubit](https://github.com/influenceth/cubit) simplex noise to restrict movement over mountains
+- [noise](https://github.com/influenceth/sdk/blob/master/src/utils/simplex.js)
