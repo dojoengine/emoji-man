@@ -107,8 +107,14 @@ b. Deploying to `katana`
 slot deployments create <Project Name> katana
 ```
 
-c. Deploying a client to vercel - `use your own vercel account`  
-d. Multiplayer - share live link
+c. Deploy a remote `torii` instance
+
+```
+slot deployments create <Project Name> torii --world <YOUR_WORLD_ADDRESS>
+```
+
+d. Deploying a client to vercel - `use your own vercel account`  
+de. Multiplayer - share live link
 
 ## Next Steps
 
