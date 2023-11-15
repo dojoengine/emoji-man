@@ -112,3 +112,7 @@ d. Multiplayer - share live link
 
 - Use [cubit](https://github.com/influenceth/cubit) simplex noise to restrict movement over mountains
 - [noise](https://github.com/influenceth/sdk/blob/master/src/utils/simplex.js)
+
+### Bonus 4: Add a collectables
+
+- Add a way to spawn collectables on the map and allow players to collect them
