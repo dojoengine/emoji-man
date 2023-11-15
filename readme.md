@@ -2,8 +2,6 @@
 
 Eat to survive workshop.
 
-The project is split into branches, so you can follow along with the workshop. If you run into issues, checkout of that branch and move to the next one.
-
 ### Resources:
 
 - [dojobook](https://book.dojoengine.org/)
@@ -38,11 +36,13 @@ dojoup
 a. Initialising the project
 b. Looking at the project structure
 c. Looking at the Scarb
+d. Cairo explanation
 
 ### Step 2: Your first model
 
 a. Thinking about model structure
-b. Creating a model and their state structure. 101 on ECS.
+b. Creating a model and their state structure. 101 on [ECS](https://github.com/SanderMertens/ecs-faq)
+c. Dojo is not purely ECS
 
 ### Step 3: Your first system
 
@@ -50,17 +50,18 @@ a. Creating a system - it's just a contract
 b. Adding a new system
 c. Run building via sozo to test
 
-### Step 4: Adding a new component to a system
+### Step 4: Adding a new model to a system
 
-a. Adding a new component
+a. Adding a new model
 b. Adding a trait!!
 c. Using the trait in a system
 d. Running build to check
 
 ### Step 5: Sozo and the cli
 
-a. Deeper into Scarb
+a. Deeper into sozo
 b. Spinning Katana up
+c. Spinning up torii and pointing to world
 
 ### Step 6: Clean up
 
@@ -90,11 +91,12 @@ b. resyncing the client
 
 ### Step 10: Spinning up slot and deploying remotely
 
-a. What is slot?
-b. Running a Katana
-c. Deploying to Katana
-d. Deploying a client to vercel
-e. Multiplayer
+a. What is [slot](https://github.com/cartridge-gg/slot)?
+`slot auth login`
+b. Deploying to Katana
+`slot deployments create <Project Name> katana`
+c. Deploying a client to vercel - `use your own vercel account`
+d. Multiplayer - share live link
 
 ## Next Steps
 

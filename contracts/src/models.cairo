@@ -1,6 +1,7 @@
 use starknet::ContractAddress;
 use debug::PrintTrait;
 
+// Declaration of an enum named 'Direction' with five variants
 #[derive(Serde, Copy, Drop, Introspect)]
 enum Direction {
     None,
@@ -10,6 +11,7 @@ enum Direction {
     Down,
 }
 
+// Implementation of a trait to convert Direction enum into felt252 data type
 impl DirectionIntoFelt252 of Into<Direction, felt252> {
     fn into(self: Direction) -> felt252 {
         match self {
@@ -22,14 +24,17 @@ impl DirectionIntoFelt252 of Into<Direction, felt252> {
     }
 }
 
+// Constant definition for a game data key. This allows us to fetch this model using the key.
 const GAME_DATA_KEY: felt252 = 'game';
 
+// Structure definition for a 2D vector with x and y as unsigned 32-bit integers
 #[derive(Copy, Drop, Serde, Introspect)]
 struct Vec2 {
     x: u32,
     y: u32
 }
 
+// Structure to represent a player's position with unique keys and an ID
 #[derive(Model, Copy, Drop, Serde)]
 struct PlayerAtPosition {
     #[key]
@@ -39,6 +44,7 @@ struct PlayerAtPosition {
     id: u8,
 }
 
+// Structure representing a position with an ID, and x, y coordinates
 #[derive(Model, Copy, Drop, Serde)]
 struct Position {
     #[key]
@@ -47,6 +53,7 @@ struct Position {
     y: u8
 }
 
+// Structure representing a Rock, Paper, Scissors type game with an ID and a value
 #[derive(Model, Copy, Drop, Serde)]
 struct RPSType {
     #[key]
@@ -54,6 +61,7 @@ struct RPSType {
     rps: u8,
 }
 
+// Structure for storing energy amount with an ID
 #[derive(Model, Copy, Drop, Serde)]
 struct Energy {
     #[key]
@@ -61,6 +69,7 @@ struct Energy {
     amt: u8,
 }
 
+// Structure representing a player's ID with a ContractAddress
 #[derive(Model, Copy, Drop, Serde)]
 struct PlayerID {
     #[key]
@@ -68,6 +77,7 @@ struct PlayerID {
     id: u8,
 }
 
+// Structure linking a player's ID to their ContractAddress
 #[derive(Model, Copy, Drop, Serde)]
 struct PlayerAddress {
     #[key]
@@ -75,6 +85,7 @@ struct PlayerAddress {
     player: ContractAddress,
 }
 
+// Structure for storing game data with a key, number of players, and available IDs
 #[derive(Model, Copy, Drop, Serde)]
 struct GameData {
     #[key]
