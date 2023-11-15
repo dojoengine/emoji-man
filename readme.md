@@ -37,7 +37,7 @@ Running `dojoup` command will install the latest stable release of the Dojo (as 
 
 a. Initialising the project  
 b. Looking at the project structure  
-c. Looking at the Scarb
+c. Looking at the Scarb  
 d. Cairo explanation
 
 ### Step 2: Your first model
