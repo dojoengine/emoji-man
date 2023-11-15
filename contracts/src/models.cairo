@@ -61,6 +61,14 @@ struct RPSType {
     rps: u8,
 }
 
+#[generate_trait]
+impl RPSTypeImpl of RPSTypeTrait {
+    fn get_type(self: RPSType) -> u8 {
+        self.rps
+    }
+}
+
+
 // Structure for storing energy amount with an ID
 #[derive(Model, Copy, Drop, Serde)]
 struct Energy {
