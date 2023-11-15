@@ -22,7 +22,7 @@ curl -L https://install.dojoengine.org | bash
 Then run the command:
 
 ```
-dojoup
+dojoup -v 0.3.10
 ```
 
 Running `dojoup` command will install the latest stable release of the Dojo (as of now [`v0.3.10`](https://github.com/dojoengine/dojo/releases/tag/v0.3.10)) tool suite.
@@ -97,6 +97,18 @@ b. resyncing the client
 
 a. What is [slot](https://github.com/cartridge-gg/slot)?
 
+Run the following commands to install `slot`:
+
+```
+curl -L https://slot.cartridge.sh | bash
+```
+
+```
+slotup -v 0.5.6
+```
+
+Log in to `slot`:
+
 ```
 slot auth login
 ```
@@ -113,7 +125,7 @@ c. Deploy a remote `torii` instance
 slot deployments create <Project Name> torii --world <YOUR_WORLD_ADDRESS>
 ```
 
-d. Deploying a client to vercel - `use your own vercel account`  
+d. Deploying a client to vercel - `use your own vercel account`
 de. Multiplayer - share live link
 
 ## Next Steps
