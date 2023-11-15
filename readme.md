@@ -27,7 +27,13 @@ Then install dojoup:
 dojoup
 ```
 
-### Step 1: Init
+### (Optional) Try out the starter first
+
+`git clone https://github.com/dojoengine/dojo-starter`
+
+### Step 1: Init main project
+
+`git clone https://github.com/dojoengine/emoji-man`
 
 a. Initialising the project
 b. Looking at the project structure
