@@ -12,6 +12,7 @@ const ORIGIN_OFFSET: u8 = 100; // Origin offset
 trait IActions<TContractState> {
     fn spawn(self: @TContractState, rps: u8);
     fn move(self: @TContractState, dir: Direction);
+    fn cleanup(self: @TContractState);
     fn tick(self: @TContractState);
 }
 
@@ -195,6 +196,26 @@ mod actions {
                     player_position_and_energy(world, id, x, y, energy.amt - MOVE_ENERGY_COST);
                 }
             }
+        }
+
+        fn cleanup(self: @ContractState) {
+            let world = self.world_dispatcher.read();
+            let player = get_caller_address();
+
+            // reset player count
+            let mut game_data = get!(world, GAME_DATA_KEY, (GameData));
+            game_data.number_of_players = 0;
+            set!(world, (game_data));
+
+            // Kill off all players
+            let mut i = 1;
+            loop {
+                if i > 20 {
+                    break;
+                }
+                player_dead(world, i);
+                i += 1;
+            };
         }
 
         // Process player move queues
