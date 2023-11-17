@@ -31,6 +31,8 @@ mod actions {
     };
     use integer::{u128s_from_felt252, U128sFromFelt252Result, u128_safe_divmod};
 
+    const DOJO_WORLD_RESOURCE: felt252 = 0;
+
     // region player id assignment
     fn assign_player_id(world: IWorldDispatcher, num_players: u8, player: ContractAddress) -> u8 {
         let id = num_players;
@@ -68,7 +70,7 @@ mod actions {
         world.delete_entity('PlayerAddress', entity_keys);
 
         set!(world, (PlayerID { player, id: 0 }));
-        set!(world, (Position { id, x: 0, y: 0 }));
+        set!(world, (Position { id, x: 0, y: 0 }, RPSType { id, rps: 0 }));
 
         // Remove player components
         world.delete_entity('RPSType', entity_keys);
@@ -202,6 +204,10 @@ mod actions {
             let world = self.world_dispatcher.read();
             let player = get_caller_address();
 
+            assert(
+                world.is_owner(get_caller_address(), DOJO_WORLD_RESOURCE), 'only owner can call'
+            );
+
             // reset player count
             let mut game_data = get!(world, GAME_DATA_KEY, (GameData));
             game_data.number_of_players = 0;
@@ -303,13 +309,17 @@ mod tests {
         actions_.spawn('r');
         // Get player ID
         let player_id = get!(world, caller, (PlayerID)).id;
+
+        let (position, rps_type, energy) = get!(world, player_id, (Position, RPSType, Energy));
+
+        // kill player
         actions::player_dead(world, player_id);
 
-        // Get player from id
+        // player models should be 0
         let (position, rps_type, energy) = get!(world, player_id, (Position, RPSType, Energy));
         assert(0 == position.x, 'incorrect position.x');
         assert(0 == position.y, 'incorrect position.y');
-    // assert(0 == energy.amt, 'incorrect energy');
+        assert(0 == energy.amt, 'incorrect energy');
     }
 
     #[test]
