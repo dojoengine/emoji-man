@@ -35,16 +35,13 @@ export const move = (layer: PhaserLayer) => {
             entity.toString() as Entity
         );
 
-        if (!rpsType.rps) {
-            return; // No type no show
-        }
-
         const position = getComponentValueStrict(
             Position,
             entity.toString() as Entity
         );
 
         const entity_uniform = (+entity).toString();
+
         console.log(entity, entity_uniform, '\n------- pos/type triggered -------\n', position);
 
         const player = objectPool.get(entity_uniform, "Sprite");
