@@ -1,8 +1,8 @@
 {
   "world": {
     "name": "world",
-    "address": "0x26b07804fc97525d4f50dd1d4c035512899d6d5a94752f511f23ba2b0479946",
-    "class_hash": "0x6441e7fc96d795ec94fca66634e6d87edf84362e564ef80eb13f459914b8b",
+    "address": "0x1fad58d91d5d121aa6dc4d16c01a161e0441ef75fe7d31e3664a61e66022b1f",
+    "class_hash": "0x99b08b2ff33750916e36b5e241b5d4a63e8d48862bf90a68fec2ff58a8de6",
     "abi": [
       {
         "type": "impl",
@@ -351,6 +351,10 @@
               {
                 "name": "keys",
                 "type": "core::array::Span::<core::felt252>"
+              },
+              {
+                "name": "layout",
+                "type": "core::array::Span::<core::integer::u8>"
               }
             ],
             "outputs": [],
@@ -463,6 +467,29 @@
         ]
       },
       {
+        "type": "impl",
+        "name": "UpgradeableWorld",
+        "interface_name": "dojo::world::IUpgradeableWorld"
+      },
+      {
+        "type": "interface",
+        "name": "dojo::world::IUpgradeableWorld",
+        "items": [
+          {
+            "type": "function",
+            "name": "upgrade",
+            "inputs": [
+              {
+                "name": "new_class_hash",
+                "type": "core::starknet::class_hash::ClassHash"
+              }
+            ],
+            "outputs": [],
+            "state_mutability": "external"
+          }
+        ]
+      },
+      {
         "type": "constructor",
         "name": "constructor",
         "inputs": [
@@ -528,6 +555,18 @@
           {
             "name": "address",
             "type": "core::starknet::contract_address::ContractAddress",
+            "kind": "data"
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "name": "dojo::world::world::WorldUpgraded",
+        "kind": "struct",
+        "members": [
+          {
+            "name": "class_hash",
+            "type": "core::starknet::class_hash::ClassHash",
             "kind": "data"
           }
         ]
@@ -697,6 +736,11 @@
             "kind": "nested"
           },
           {
+            "name": "WorldUpgraded",
+            "type": "dojo::world::world::WorldUpgraded",
+            "kind": "nested"
+          },
+          {
             "name": "MetadataUpdate",
             "type": "dojo::world::world::MetadataUpdate",
             "kind": "nested"
@@ -801,16 +845,48 @@
   },
   "base": {
     "name": "base",
-    "class_hash": "0x5a2c567ed06c8059c8d1199684796a0a0ef614f9a2ab628700e804524816b5c",
+    "class_hash": "0x77638e9a645209ac1e32e143bfdbfe9caf723c4f7645fcf465c38967545ea2f",
     "abi": [
       {
         "type": "impl",
-        "name": "Upgradeable",
-        "interface_name": "dojo::upgradable::IUpgradeable"
+        "name": "WorldProviderImpl",
+        "interface_name": "dojo::world::IWorldProvider"
+      },
+      {
+        "type": "struct",
+        "name": "dojo::world::IWorldDispatcher",
+        "members": [
+          {
+            "name": "contract_address",
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ]
       },
       {
         "type": "interface",
-        "name": "dojo::upgradable::IUpgradeable",
+        "name": "dojo::world::IWorldProvider",
+        "items": [
+          {
+            "type": "function",
+            "name": "world",
+            "inputs": [],
+            "outputs": [
+              {
+                "type": "dojo::world::IWorldDispatcher"
+              }
+            ],
+            "state_mutability": "view"
+          }
+        ]
+      },
+      {
+        "type": "impl",
+        "name": "UpgradableImpl",
+        "interface_name": "dojo::components::upgradeable::IUpgradeable"
+      },
+      {
+        "type": "interface",
+        "name": "dojo::components::upgradeable::IUpgradeable",
         "items": [
           {
             "type": "function",
@@ -832,60 +908,78 @@
         "inputs": []
       },
       {
-        "type": "struct",
-        "name": "dojo::world::IWorldDispatcher",
+        "type": "event",
+        "name": "dojo::components::upgradeable::upgradeable::Upgraded",
+        "kind": "struct",
         "members": [
           {
-            "name": "contract_address",
-            "type": "core::starknet::contract_address::ContractAddress"
+            "name": "class_hash",
+            "type": "core::starknet::class_hash::ClassHash",
+            "kind": "data"
           }
         ]
       },
       {
-        "type": "function",
-        "name": "world",
-        "inputs": [],
-        "outputs": [
+        "type": "event",
+        "name": "dojo::components::upgradeable::upgradeable::Event",
+        "kind": "enum",
+        "variants": [
           {
-            "type": "dojo::world::IWorldDispatcher"
+            "name": "Upgraded",
+            "type": "dojo::components::upgradeable::upgradeable::Upgraded",
+            "kind": "nested"
           }
-        ],
-        "state_mutability": "view"
+        ]
       },
       {
         "type": "event",
         "name": "dojo::base::base::Event",
         "kind": "enum",
-        "variants": []
+        "variants": [
+          {
+            "name": "UpgradeableEvent",
+            "type": "dojo::components::upgradeable::upgradeable::Event",
+            "kind": "nested"
+          }
+        ]
       }
     ]
   },
   "contracts": [
     {
       "name": "actions",
-      "address": "0x52e02a06c1fe7343c2c9d4d7c0c4dd2320c413efab7b822167625515d4060c4",
-      "class_hash": "0x732a7720f7cec17d1439ab1bfadcfc59896ac6127024a59f4691b1ff38bfc5c",
+      "address": "0x7d3bc85f0cb2972a3f2453ab89ca1d7e65d9a3c6de0827095a4e4819257aada",
+      "class_hash": "0x42d41b8eb28a2024bcf8544a477c68b8dcbf4811f55ef3cc0b48af42788fc29",
       "abi": [
         {
           "type": "impl",
-          "name": "Upgradeable",
-          "interface_name": "dojo::upgradable::IUpgradeable"
+          "name": "WorldProviderImpl",
+          "interface_name": "dojo::world::IWorldProvider"
+        },
+        {
+          "type": "struct",
+          "name": "dojo::world::IWorldDispatcher",
+          "members": [
+            {
+              "name": "contract_address",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ]
         },
         {
           "type": "interface",
-          "name": "dojo::upgradable::IUpgradeable",
+          "name": "dojo::world::IWorldProvider",
           "items": [
             {
               "type": "function",
-              "name": "upgrade",
-              "inputs": [
+              "name": "world",
+              "inputs": [],
+              "outputs": [
                 {
-                  "name": "new_class_hash",
-                  "type": "core::starknet::class_hash::ClassHash"
+                  "type": "dojo::world::IWorldDispatcher"
                 }
               ],
-              "outputs": [],
-              "state_mutability": "external"
+              "state_mutability": "view"
             }
           ]
         },
@@ -965,6 +1059,29 @@
           ]
         },
         {
+          "type": "impl",
+          "name": "UpgradableImpl",
+          "interface_name": "dojo::components::upgradeable::IUpgradeable"
+        },
+        {
+          "type": "interface",
+          "name": "dojo::components::upgradeable::IUpgradeable",
+          "items": [
+            {
+              "type": "function",
+              "name": "upgrade",
+              "inputs": [
+                {
+                  "name": "new_class_hash",
+                  "type": "core::starknet::class_hash::ClassHash"
+                }
+              ],
+              "outputs": [],
+              "state_mutability": "external"
+            }
+          ]
+        },
+        {
           "type": "function",
           "name": "dojo_resource",
           "inputs": [],
@@ -977,9 +1094,39 @@
         },
         {
           "type": "event",
+          "name": "dojo::components::upgradeable::upgradeable::Upgraded",
+          "kind": "struct",
+          "members": [
+            {
+              "name": "class_hash",
+              "type": "core::starknet::class_hash::ClassHash",
+              "kind": "data"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "name": "dojo::components::upgradeable::upgradeable::Event",
+          "kind": "enum",
+          "variants": [
+            {
+              "name": "Upgraded",
+              "type": "dojo::components::upgradeable::upgradeable::Upgraded",
+              "kind": "nested"
+            }
+          ]
+        },
+        {
+          "type": "event",
           "name": "emojiman::actions::actions::Event",
           "kind": "enum",
-          "variants": []
+          "variants": [
+            {
+              "name": "UpgradeableEvent",
+              "type": "dojo::components::upgradeable::upgradeable::Event",
+              "kind": "nested"
+            }
+          ]
         }
       ],
       "reads": [
@@ -1018,7 +1165,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x77aa8ecde53321675524ae1b5836b39c09aa582d50b0814eafbb1201c659ff",
+      "class_hash": "0x2d72c9256ab5ef224f49b455f548994745a2791a0cc4a37f3b0c98dafdd1d86",
       "abi": [
         {
           "type": "function",
@@ -1096,7 +1243,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Struct",
+          "name": "dojo::database::introspect::Struct",
           "members": [
             {
               "name": "name",
@@ -1124,7 +1271,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Enum",
+          "name": "dojo::database::introspect::Enum",
           "members": [
             {
               "name": "name",
@@ -1142,7 +1289,7 @@
         },
         {
           "type": "enum",
-          "name": "dojo::database::schema::Ty",
+          "name": "dojo::database::introspect::Ty",
           "variants": [
             {
               "name": "Primitive",
@@ -1150,11 +1297,11 @@
             },
             {
               "name": "Struct",
-              "type": "dojo::database::schema::Struct"
+              "type": "dojo::database::introspect::Struct"
             },
             {
               "name": "Enum",
-              "type": "dojo::database::schema::Enum"
+              "type": "dojo::database::introspect::Enum"
             },
             {
               "name": "Tuple",
@@ -1168,7 +1315,7 @@
           "inputs": [],
           "outputs": [
             {
-              "type": "dojo::database::schema::Ty"
+              "type": "dojo::database::introspect::Ty"
             }
           ],
           "state_mutability": "view"
@@ -1200,7 +1347,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x292bf2e41ec9dd0dfe7d86e1ad237eb7db33f3f47469729d426b4c2d5f7873",
+      "class_hash": "0x7f833dfd481ba795f4f14f5b41ee72c6a9870f5970d6f5e2b7bede43c7c9f53",
       "abi": [
         {
           "type": "function",
@@ -1278,7 +1425,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Struct",
+          "name": "dojo::database::introspect::Struct",
           "members": [
             {
               "name": "name",
@@ -1306,7 +1453,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Enum",
+          "name": "dojo::database::introspect::Enum",
           "members": [
             {
               "name": "name",
@@ -1324,7 +1471,7 @@
         },
         {
           "type": "enum",
-          "name": "dojo::database::schema::Ty",
+          "name": "dojo::database::introspect::Ty",
           "variants": [
             {
               "name": "Primitive",
@@ -1332,11 +1479,11 @@
             },
             {
               "name": "Struct",
-              "type": "dojo::database::schema::Struct"
+              "type": "dojo::database::introspect::Struct"
             },
             {
               "name": "Enum",
-              "type": "dojo::database::schema::Enum"
+              "type": "dojo::database::introspect::Enum"
             },
             {
               "name": "Tuple",
@@ -1350,7 +1497,7 @@
           "inputs": [],
           "outputs": [
             {
-              "type": "dojo::database::schema::Ty"
+              "type": "dojo::database::introspect::Ty"
             }
           ],
           "state_mutability": "view"
@@ -1377,7 +1524,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x108ad49ef1fa4b962e80bc97bf9776699739cbe2f8bfd1e54dcd57accb5553e",
+      "class_hash": "0x73214e294677f62b348d4aa2bf7d80b8e7bdcfb0a3a267163acd38579c9eb7a",
       "abi": [
         {
           "type": "function",
@@ -1455,7 +1602,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Struct",
+          "name": "dojo::database::introspect::Struct",
           "members": [
             {
               "name": "name",
@@ -1483,7 +1630,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Enum",
+          "name": "dojo::database::introspect::Enum",
           "members": [
             {
               "name": "name",
@@ -1501,7 +1648,7 @@
         },
         {
           "type": "enum",
-          "name": "dojo::database::schema::Ty",
+          "name": "dojo::database::introspect::Ty",
           "variants": [
             {
               "name": "Primitive",
@@ -1509,11 +1656,11 @@
             },
             {
               "name": "Struct",
-              "type": "dojo::database::schema::Struct"
+              "type": "dojo::database::introspect::Struct"
             },
             {
               "name": "Enum",
-              "type": "dojo::database::schema::Enum"
+              "type": "dojo::database::introspect::Enum"
             },
             {
               "name": "Tuple",
@@ -1527,7 +1674,7 @@
           "inputs": [],
           "outputs": [
             {
-              "type": "dojo::database::schema::Ty"
+              "type": "dojo::database::introspect::Ty"
             }
           ],
           "state_mutability": "view"
@@ -1559,7 +1706,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x24cc9a5afb9b18df8b480e67ea3972e51dcc23ff50199b8a492e27b6677ff96",
+      "class_hash": "0x3c1c0112b2394557a2b5ef1980594515e25974b06b865bc8a1d2c3439783c77",
       "abi": [
         {
           "type": "function",
@@ -1637,7 +1784,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Struct",
+          "name": "dojo::database::introspect::Struct",
           "members": [
             {
               "name": "name",
@@ -1665,7 +1812,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Enum",
+          "name": "dojo::database::introspect::Enum",
           "members": [
             {
               "name": "name",
@@ -1683,7 +1830,7 @@
         },
         {
           "type": "enum",
-          "name": "dojo::database::schema::Ty",
+          "name": "dojo::database::introspect::Ty",
           "variants": [
             {
               "name": "Primitive",
@@ -1691,11 +1838,11 @@
             },
             {
               "name": "Struct",
-              "type": "dojo::database::schema::Struct"
+              "type": "dojo::database::introspect::Struct"
             },
             {
               "name": "Enum",
-              "type": "dojo::database::schema::Enum"
+              "type": "dojo::database::introspect::Enum"
             },
             {
               "name": "Tuple",
@@ -1709,7 +1856,7 @@
           "inputs": [],
           "outputs": [
             {
-              "type": "dojo::database::schema::Ty"
+              "type": "dojo::database::introspect::Ty"
             }
           ],
           "state_mutability": "view"
@@ -1736,7 +1883,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x398a400fa43ff65a363943410d308efc530838b408d1565906c0302ef3fddbc",
+      "class_hash": "0x5686bd62a4a4249b824136ce6b209d63d362a500dfe0b20b043a42722c9d1c7",
       "abi": [
         {
           "type": "function",
@@ -1814,7 +1961,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Struct",
+          "name": "dojo::database::introspect::Struct",
           "members": [
             {
               "name": "name",
@@ -1842,7 +1989,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Enum",
+          "name": "dojo::database::introspect::Enum",
           "members": [
             {
               "name": "name",
@@ -1860,7 +2007,7 @@
         },
         {
           "type": "enum",
-          "name": "dojo::database::schema::Ty",
+          "name": "dojo::database::introspect::Ty",
           "variants": [
             {
               "name": "Primitive",
@@ -1868,11 +2015,11 @@
             },
             {
               "name": "Struct",
-              "type": "dojo::database::schema::Struct"
+              "type": "dojo::database::introspect::Struct"
             },
             {
               "name": "Enum",
-              "type": "dojo::database::schema::Enum"
+              "type": "dojo::database::introspect::Enum"
             },
             {
               "name": "Tuple",
@@ -1886,7 +2033,7 @@
           "inputs": [],
           "outputs": [
             {
-              "type": "dojo::database::schema::Ty"
+              "type": "dojo::database::introspect::Ty"
             }
           ],
           "state_mutability": "view"
@@ -1918,7 +2065,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x2b3ef9971bdad9e5e289aecdd08b143ee291e50fb9d871caad0c539f652c3ca",
+      "class_hash": "0x48b2bbf7002535eb16bb0fad6a4d6f769c5c9d78b1bc3a09dcbe6880640cf9f",
       "abi": [
         {
           "type": "function",
@@ -1996,7 +2143,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Struct",
+          "name": "dojo::database::introspect::Struct",
           "members": [
             {
               "name": "name",
@@ -2024,7 +2171,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Enum",
+          "name": "dojo::database::introspect::Enum",
           "members": [
             {
               "name": "name",
@@ -2042,7 +2189,7 @@
         },
         {
           "type": "enum",
-          "name": "dojo::database::schema::Ty",
+          "name": "dojo::database::introspect::Ty",
           "variants": [
             {
               "name": "Primitive",
@@ -2050,11 +2197,11 @@
             },
             {
               "name": "Struct",
-              "type": "dojo::database::schema::Struct"
+              "type": "dojo::database::introspect::Struct"
             },
             {
               "name": "Enum",
-              "type": "dojo::database::schema::Enum"
+              "type": "dojo::database::introspect::Enum"
             },
             {
               "name": "Tuple",
@@ -2068,7 +2215,7 @@
           "inputs": [],
           "outputs": [
             {
-              "type": "dojo::database::schema::Ty"
+              "type": "dojo::database::introspect::Ty"
             }
           ],
           "state_mutability": "view"
@@ -2095,7 +2242,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x41356be168e59d21b11d43e58ef1de820b375de86ecc54a182bf563ec595d60",
+      "class_hash": "0x3220ddcfb0227ba89aa4f2d7ab60037daf3d4f74f8904ab9910ccca88f39367",
       "abi": [
         {
           "type": "function",
@@ -2173,7 +2320,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Struct",
+          "name": "dojo::database::introspect::Struct",
           "members": [
             {
               "name": "name",
@@ -2201,7 +2348,7 @@
         },
         {
           "type": "struct",
-          "name": "dojo::database::schema::Enum",
+          "name": "dojo::database::introspect::Enum",
           "members": [
             {
               "name": "name",
@@ -2219,7 +2366,7 @@
         },
         {
           "type": "enum",
-          "name": "dojo::database::schema::Ty",
+          "name": "dojo::database::introspect::Ty",
           "variants": [
             {
               "name": "Primitive",
@@ -2227,11 +2374,11 @@
             },
             {
               "name": "Struct",
-              "type": "dojo::database::schema::Struct"
+              "type": "dojo::database::introspect::Struct"
             },
             {
               "name": "Enum",
-              "type": "dojo::database::schema::Enum"
+              "type": "dojo::database::introspect::Enum"
             },
             {
               "name": "Tuple",
@@ -2245,7 +2392,7 @@
           "inputs": [],
           "outputs": [
             {
-              "type": "dojo::database::schema::Ty"
+              "type": "dojo::database::introspect::Ty"
             }
           ],
           "state_mutability": "view"

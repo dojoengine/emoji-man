@@ -50,7 +50,6 @@ mod actions {
     fn player_at_position(world: IWorldDispatcher, x: u8, y: u8) -> u8 {
         get!(world, (x, y), (PlayerAtPosition)).id
     }
-    // endregion player position
 
     // region game ops
     fn player_position_and_energy(world: IWorldDispatcher, id: u8, x: u8, y: u8, amt: u8) {
@@ -65,17 +64,17 @@ mod actions {
         let entity_keys = array![id_felt].span();
         let player = get!(world, id, (PlayerAddress)).player;
         let player_felt: felt252 = player.into();
-        // Remove player address and ID mappings
-        world.delete_entity('PlayerID', array![player_felt].span());
-        world.delete_entity('PlayerAddress', entity_keys);
+    // Remove player address and ID mappings
+    // world.delete_entity('PlayerID', array![player_felt].span(), array![]);
+    // world.delete_entity('PlayerAddress', entity_keys, array![]);
 
-        set!(world, (PlayerID { player, id: 0 }));
-        set!(world, (Position { id, x: 0, y: 0 }, RPSType { id, rps: 0 }));
+    // set!(world, (PlayerID { player, id: 0 }));
+    // set!(world, (Position { id, x: 0, y: 0 }, RPSType { id, rps: 0 }));
 
-        // Remove player components
-        world.delete_entity('RPSType', entity_keys);
-        world.delete_entity('Position', entity_keys);
-        world.delete_entity('Energy', entity_keys);
+    // // Remove player components
+    // world.delete_entity('RPSType', entity_keys, array![]);
+    // world.delete_entity('Position', entity_keys, array![]);
+    // world.delete_entity('Energy', entity_keys, array![]);
     }
 
     // panics if players are of same type (move cancelled)
