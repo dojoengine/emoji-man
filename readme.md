@@ -25,10 +25,10 @@ curl -L https://install.dojoengine.org | bash
 Then run the command:
 
 ```
-dojoup -v 0.3.10
+dojoup
 ```
 
-Running `dojoup` command will install the latest stable release of the Dojo (as of now [`v0.3.10`](https://github.com/dojoengine/dojo/releases/tag/v0.3.10)) tool suite.
+Running `dojoup` command will install the latest stable release of the Dojo (as of now [`v0.3.15`](https://github.com/dojoengine/dojo/releases/tag/v0.3.10)) tool suite.
 
 ### (Optional) Try out the starter first
 

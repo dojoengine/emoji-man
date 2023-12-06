@@ -12,25 +12,26 @@ export const createNetworkLayer = async () => {
         const models: any = [];
 
         for (let i = 1; i <= 20; i++) {
+            let keys = [BigInt(i)];
             models.push({
                 model: network.contractComponents.Position,
-                keys: [i.toString()],
+                keys,
             });
             models.push({
                 model: network.contractComponents.RPSType,
-                keys: [i.toString()],
+                keys,
             });
             models.push({
                 model: network.contractComponents.PlayerAddress,
-                keys: [i.toString()],
+                keys,
             });
             models.push({
                 model: network.contractComponents.PlayerID,
-                keys: [i.toString()],
+                keys,
             });
             models.push({
                 model: network.contractComponents.Energy,
-                keys: [i.toString()],
+                keys,
             });
         }
 
