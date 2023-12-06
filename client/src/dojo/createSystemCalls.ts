@@ -1,6 +1,8 @@
 import { SetupNetworkResult } from "./setupNetwork";
 import { ClientComponents } from "./createClientComponents";
 import { MoveSystemProps, SpawnSystemProps } from "./types";
+import { uuid } from "@latticexyz/utils";
+import { Entity, getComponentValue } from "@dojoengine/recs";
 
 export type SystemCalls = ReturnType<typeof createSystemCalls>;
 
@@ -20,6 +22,11 @@ export function createSystemCalls(
         const { signer, direction } = props;
 
         // TODO: Add optimistic updates
+
+        // 1. get player ID
+        // 2. get player by playerID position
+        // 3. calculate new position
+        // 4. update position
 
         try {
             const { transaction_hash } = await execute(
