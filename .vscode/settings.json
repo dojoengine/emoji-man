@@ -1,0 +1,4 @@
+{
+  "cairo1.languageServerPath": "~/.dojo/bin/dojo-language-server",
+  "cairo1.enableScarb": true
+}

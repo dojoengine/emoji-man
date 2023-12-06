@@ -1,6 +1,6 @@
 use emojiman::models::{Direction};
 
-const INITIAL_ENERGY: u8 = 10;
+const INITIAL_ENERGY: u8 = 100;
 const RENEWED_ENERGY: u8 = 3;
 const MOVE_ENERGY_COST: u8 = 1;
 const X_RANGE: u128 = 50; // These need to be u128
@@ -64,17 +64,20 @@ mod actions {
         let entity_keys = array![id_felt].span();
         let player = get!(world, id, (PlayerAddress)).player;
         let player_felt: felt252 = player.into();
-    // Remove player address and ID mappings
-    // world.delete_entity('PlayerID', array![player_felt].span(), array![]);
-    // world.delete_entity('PlayerAddress', entity_keys, array![]);
+        // Remove player address and ID mappings
 
-    // set!(world, (PlayerID { player, id: 0 }));
-    // set!(world, (Position { id, x: 0, y: 0 }, RPSType { id, rps: 0 }));
+        let mut layout = array![];
 
-    // // Remove player components
-    // world.delete_entity('RPSType', entity_keys, array![]);
-    // world.delete_entity('Position', entity_keys, array![]);
-    // world.delete_entity('Energy', entity_keys, array![]);
+        world.delete_entity('PlayerID', array![player_felt].span(), layout.span());
+        world.delete_entity('PlayerAddress', entity_keys, layout.span());
+
+        set!(world, (PlayerID { player, id: 0 }));
+        set!(world, (Position { id, x: 0, y: 0 }, RPSType { id, rps: 0 }));
+
+        // Remove player components
+        world.delete_entity('RPSType', entity_keys, layout.span());
+        world.delete_entity('Position', entity_keys, layout.span());
+        world.delete_entity('Energy', entity_keys, layout.span());
     }
 
     // panics if players are of same type (move cancelled)
@@ -141,7 +144,7 @@ mod actions {
 
             let mut game_data = get!(world, GAME_DATA_KEY, (GameData));
             game_data.number_of_players += 1;
-            let number_of_players = game_data.number_of_players; // id starts at 1
+            let number_of_players = game_data.number_of_players;
             set!(world, (game_data));
 
             assert(rps == 'r' || rps == 'p' || rps == 's', 'only r, p or s type allowed');
