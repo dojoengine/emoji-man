@@ -1,13 +1,16 @@
+![image](./.github/image.png)
+
 ## Emoji Man
 
-Eat to survive workshop.
+1. Spawn 🪨 or 📄 or ✂️
+2. Try and survive. RPS style mechanics.
 
 ### Resources:
 
--   [dojobook](https://book.dojoengine.org/)
--   [Cairo book](https://github.com/cairo-book/cairo-book.github.io/)
--   [discord](https://discord.gg/dojoengine)
--   [awesome dojo](https://github.com/dojoengine/awesome-dojo)
+- [dojobook](https://book.dojoengine.org/)
+- [Cairo book](https://github.com/cairo-book/cairo-book.github.io/)
+- [discord](https://discord.gg/dojoengine)
+- [awesome dojo](https://github.com/dojoengine/awesome-dojo)
 
 ## Getting started in the Demo
 
@@ -132,17 +135,17 @@ de. Multiplayer - share live link
 
 ### Bonus 1: Optimistc Rendering
 
--   Use RECS optimisc rendering to render the player in the client before the tx is confirmed
+- Use RECS optimisc rendering to render the player in the client before the tx is confirmed
 
 ### Bonus 2: Show energy levels in the client
 
--   Use RECS to show the energy levels in the client
+- Use RECS to show the energy levels in the client
 
 ### Bonus 3: Noise in map in Cairo and in Client
 
--   Use [cubit](https://github.com/influenceth/cubit) simplex noise to restrict movement over mountains
--   [noise](https://github.com/influenceth/sdk/blob/master/src/utils/simplex.js)
+- Use [cubit](https://github.com/influenceth/cubit) simplex noise to restrict movement over mountains
+- [noise](https://github.com/influenceth/sdk/blob/master/src/utils/simplex.js)
 
 ### Bonus 4: Add a collectables
 
--   Add a way to spawn collectables on the map and allow players to collect them
+- Add a way to spawn collectables on the map and allow players to collect them
