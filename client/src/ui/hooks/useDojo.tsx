@@ -16,15 +16,17 @@ export const useDojo = () => {
         throw new Error("Store not initialized");
     }
 
+    const { networkLayer, phaserLayer } = layers;
+
     const { get, create, select, list, isDeploying, clear } = useBurnerManager({
-        burnerManager: layers.networkLayer.burnerManage,
+        burnerManager: layers.networkLayer.burnerManager,
     });
 
     return {
-        networkLayer: layers.networkLayer as NetworkLayer,
-        phaserLayer: layers.phaserLayer as PhaserLayer,
+        networkLayer: networkLayer as NetworkLayer,
+        phaserLayer: phaserLayer as PhaserLayer,
         account: {
-            account: layers.networkLayer.burnerManage.account as Account,
+            account: networkLayer.burnerManager.account as Account,
             get,
             create,
             select,
@@ -32,8 +34,7 @@ export const useDojo = () => {
             clear,
             isDeploying,
         },
-        systemCalls: layers.networkLayer.systemCalls,
-        toriiClient: layers.networkLayer.network.toriiClient,
-        contractComponents: layers.networkLayer.network.contractComponents,
+        systemCalls: networkLayer.systemCalls,
+        contractComponents: networkLayer.network.contractComponents,
     };
 };

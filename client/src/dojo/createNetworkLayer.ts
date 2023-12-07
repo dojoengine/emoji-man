@@ -1,6 +1,5 @@
 import { world } from "./world";
 import { setup } from "./setup";
-import { Account } from "starknet";
 import { createSyncManager } from "@dojoengine/react";
 
 export type NetworkLayer = Awaited<ReturnType<typeof createNetworkLayer>>;
@@ -8,38 +7,43 @@ export type NetworkLayer = Awaited<ReturnType<typeof createNetworkLayer>>;
 export const createNetworkLayer = async () => {
     const { components, systemCalls, network } = await setup();
 
+    const { Position, PlayerID, Energy, RPSType, PlayerAddress } =
+        network.contractComponents;
+
+    const { burnerManager, toriiClient, account } = network;
+
     const initial_sync = () => {
         const models: any = [];
 
         for (let i = 1; i <= 30; i++) {
             let keys = [BigInt(i)];
             models.push({
-                model: network.contractComponents.Position,
+                model: Position,
                 keys,
             });
             models.push({
-                model: network.contractComponents.RPSType,
+                model: RPSType,
                 keys,
             });
             models.push({
-                model: network.contractComponents.PlayerAddress,
+                model: PlayerAddress,
                 keys,
             });
             models.push({
-                model: network.contractComponents.Energy,
+                model: Energy,
                 keys,
             });
         }
 
         models.push({
-            model: network.contractComponents.PlayerID,
-            keys: [BigInt(network.account.address)],
+            model: PlayerID,
+            keys: [BigInt(account.address)],
         });
 
         return models;
     };
 
-    const { sync } = createSyncManager(network.toriiClient, initial_sync());
+    const { sync } = createSyncManager(toriiClient, initial_sync());
 
     sync();
 
@@ -48,7 +52,7 @@ export const createNetworkLayer = async () => {
         components,
         systemCalls,
         network,
-        account: network.burnerManager.account as Account,
-        burnerManage: network.burnerManager,
+        account,
+        burnerManager,
     };
 };
