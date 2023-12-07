@@ -29,7 +29,7 @@ export const useDojo = () => {
             isDeploying,
         },
         systemCalls: networkLayer.systemCalls,
-        toriiClient: networkLayer.network.torii_client,
+        toriiClient: networkLayer.network.toriiClient,
         contractComponents: networkLayer.network.contractComponents,
     };
 };

@@ -17,17 +17,13 @@ export async function setupNetwork() {
         VITE_PUBLIC_DEV,
     } = import.meta.env;
 
-    const manifest = VITE_PUBLIC_DEV === "true" ? dev_manifest : prod_manifest;
-
-    console.log("Using manifest", manifest);
-
     const provider = new RPCProvider(
         VITE_PUBLIC_WORLD_ADDRESS,
-        manifest,
+        VITE_PUBLIC_DEV === "true" ? dev_manifest : prod_manifest,
         VITE_PUBLIC_NODE_URL
     );
 
-    const torii_client = await torii.createClient([], {
+    const toriiClient = await torii.createClient([], {
         rpcUrl: VITE_PUBLIC_NODE_URL,
         toriiUrl: VITE_PUBLIC_TORII,
         worldAddress: VITE_PUBLIC_WORLD_ADDRESS,
@@ -35,11 +31,14 @@ export async function setupNetwork() {
 
     const { account, burnerManager } = await createBurner();
 
-    // Return the setup object.
     return {
+        // dojo provider from core
         provider,
+
+        // recs world
         world,
-        torii_client,
+
+        toriiClient,
         account,
         burnerManager,
 

@@ -38,7 +38,7 @@ export const createNetworkLayer = async () => {
         return models;
     };
 
-    const { sync } = createSyncManager(network.torii_client, initial_sync());
+    const { sync } = createSyncManager(network.toriiClient, initial_sync());
 
     sync();
 
