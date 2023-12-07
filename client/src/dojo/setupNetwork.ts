@@ -3,7 +3,7 @@ import { world } from "./world";
 import { RPCProvider } from "@dojoengine/core";
 import { Account, num } from "starknet";
 import dev_manifest from "../../../contracts/target/dev/manifest.json";
-import prod_manifest from "../../../contracts/target/production/manifest.json";
+import prod_manifest from "../../../contracts/target/release/manifest.json";
 import * as torii from "@dojoengine/torii-client";
 import { createBurner } from "./createBurner";
 

@@ -106,29 +106,42 @@ Run the following commands to install `slot`:
 curl -L https://slot.cartridge.sh | bash
 ```
 
-```
-slotup -v 0.5.6
+```bash
+slotup
 ```
 
 Log in to `slot`:
 
-```
+```bash
 slot auth login
+
+# Slot Auth debug (if old auth credentials):
+rm ~/Library/Application\ Support/slot/credentials.json
 ```
 
-b. Deploying to `katana`
+b. Deployin
 
-```
-slot deployments create <Project Name> katana
-```
+```bash
+slot deployments create emoji-man-demo katana
 
-c. Deploy a remote `torii` instance
+# get credentials and save in Scarb.toml
+slot deployments logs emoji-man-demo katana -f
 
-```
-slot deployments create <Project Name> torii --world <YOUR_WORLD_ADDRESS>
+# build a release
+sozo --release build
+
+# migrate release to katana
+sozo --release migrate
+
+# setup torri and point to the world
+slot deployments create emoji-man-demo torii --rpc https://api.cartridge.gg/x/emoji-man-demo/katana --world 0x1fad58d91d5d121aa6dc4d16c01a161e0441ef75fe7d31e3664a61e66022b1f --start-block 1
+
+# set auth (you will need to update the rpc_url to match your release)
+./scripts/default_auth.sh release
 ```
 
 d. Deploying a client to vercel - `use your own vercel account`
+
 de. Multiplayer - share live link
 
 ## Next Steps
