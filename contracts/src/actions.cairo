@@ -175,7 +175,6 @@ mod actions {
 
     // @dev: Sets no player at position
     fn clear_player_at_position(world: IWorldDispatcher, x: u8, y: u8) {
-        // Set no player at position
         set!(world, (PlayerAtPosition { x, y, id: 0 }));
     }
 
@@ -215,13 +214,18 @@ mod actions {
     }
 
     // @dev: Handles player encounters
-    // panics if players are of same type (move cancelled)
     // if the player dies returns false
     // if the player kills the other player returns true
     fn encounter(world: IWorldDispatcher, player: u8, adversary: u8) -> bool {
         let ply_type = get!(world, player, (RPSType)).rps;
         let adv_type = get!(world, adversary, (RPSType)).rps;
         if encounter_win(ply_type, adv_type) {
+            let mut energy = get!(world, player, (Energy));
+
+            // Add energy to player
+            energy.amt += RENEWED_ENERGY;
+            set!(world, (energy));
+
             // adversary dies
             player_dead(world, adversary);
             true
