@@ -1,7 +1,7 @@
 import { Tileset } from "../../assets/world";
 import { PhaserLayer } from "..";
 import { createNoise2D } from "simplex-noise";
-import alea from 'alea';
+import alea from "alea";
 
 export function mapSystem(layer: PhaserLayer) {
     const {
@@ -14,7 +14,7 @@ export function mapSystem(layer: PhaserLayer) {
         },
     } = layer;
 
-    const noise = createNoise2D(alea('emojiman_rnd_seed'));
+    const noise = createNoise2D(alea("emojiman_rnd_seed"));
 
     for (let x = 0; x < 50; x++) {
         for (let y = 0; y < 50; y++) {

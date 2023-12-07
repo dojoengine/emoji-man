@@ -1,6 +1,4 @@
 import { Account } from "starknet";
-import { NetworkLayer } from "../../dojo/createNetworkLayer";
-import { PhaserLayer } from "../../phaser";
 import { store } from "../../store";
 import { useBurnerManager } from "@dojoengine/create-burner";
 
@@ -23,8 +21,8 @@ export const useDojo = () => {
     });
 
     return {
-        networkLayer: networkLayer as NetworkLayer,
-        phaserLayer: phaserLayer as PhaserLayer,
+        networkLayer,
+        phaserLayer,
         account: {
             account: networkLayer.burnerManager.account as Account,
             get,

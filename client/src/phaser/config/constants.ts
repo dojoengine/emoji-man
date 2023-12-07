@@ -19,9 +19,9 @@ export enum Sprites {
 }
 
 export enum RPSSprites {
-    Rock = 'r',
-    Paper = 'p',
-    Scissors = 's',
+    Rock = "r",
+    Paper = "p",
+    Scissors = "s",
 }
 
 export const ImagePaths: { [key in RPSSprites]: string } = {
