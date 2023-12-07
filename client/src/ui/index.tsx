@@ -1,4 +1,4 @@
-import { store } from "../store/store";
+import { store } from "../store";
 import { CreateAccount } from "./CreateAccount";
 import { EnergyLevels } from "./EnergyLevels";
 
@@ -10,12 +10,7 @@ export const UI = () => {
         };
     });
 
-    if (
-        !layers.networkLayer ||
-        !layers.phaserLayer ||
-        !layers.networkLayer.account
-    )
-        return <></>;
+    if (!layers.networkLayer || !layers.phaserLayer) return <></>;
 
     return (
         <div className="absolute inset-0 pointer-events-none">

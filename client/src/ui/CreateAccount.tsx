@@ -1,5 +1,6 @@
-import { useUIStore } from "../store/store";
-import { WalletConnect } from "./WalletConnect";
+import { useUIStore } from "../store";
+import { ClickWrapper } from "./ClickWrapper";
+import { Spawn } from "./Spawn";
 
 export const CreateAccount = () => {
     const loggedIn = useUIStore((state: any) => state.loggedIn);
@@ -13,7 +14,11 @@ export const CreateAccount = () => {
                 <h3 className="text-3xl mb-2">RPS</h3>
                 <h5 className="text-xl mb-4">Eat to survive</h5>
                 <div>
-                    <WalletConnect />
+                    <ClickWrapper>
+                        <div className="flex space-x-3 justify-between p-2 flex-wrap">
+                            <Spawn />
+                        </div>
+                    </ClickWrapper>
                 </div>
             </div>
         </div>

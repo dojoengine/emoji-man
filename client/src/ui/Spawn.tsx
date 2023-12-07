@@ -1,13 +1,13 @@
-import { useDojo } from "../hooks/useDojo";
+import { useDojo } from "./hooks/useDojo";
 import { ImagePaths, RPSSprites } from "../phaser/config/constants";
-import { Button } from "../components/ui/button";
-import { useUIStore } from "../store/store";
+import { Button } from "./button";
+import { useUIStore } from "../store";
 import { useEffect } from "react";
 
 export const Spawn = () => {
     const setLoggedIn = useUIStore((state: any) => state.setLoggedIn);
     const {
-        account: { account, isDeploying, list },
+        account: { account, isDeploying },
         systemCalls: { spawn },
     } = useDojo();
 

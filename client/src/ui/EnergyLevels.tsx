@@ -1,5 +1,5 @@
 import { useComponentValue } from "@dojoengine/react";
-import { useDojo } from "../hooks/useDojo";
+import { useDojo } from "./hooks/useDojo";
 import { getEntityIdFromKeys } from "@dojoengine/utils";
 import { Entity } from "@dojoengine/recs";
 

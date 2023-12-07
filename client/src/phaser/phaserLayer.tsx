@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { NetworkLayer } from "../dojo/createNetworkLayer";
-import { store, useUIStore } from "../store/store";
-import { usePhaserLayer } from "../hooks/usePhaserLayer";
+import { store, useUIStore } from "../store";
+import { usePhaserLayer } from "../ui/hooks/usePhaserLayer";
 
 type Props = {
     networkLayer: NetworkLayer | null;
