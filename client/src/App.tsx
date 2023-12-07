@@ -8,7 +8,7 @@ function App() {
     const networkLayer = useNetworkLayer();
 
     useEffect(() => {
-        if (!networkLayer) return;
+        if (!networkLayer || !networkLayer.account) return;
 
         console.log("Setting network layer");
 
@@ -17,6 +17,11 @@ function App() {
 
     return (
         <div>
+            <div className="w-full h-screen bg-black text-white flex justify-center">
+                <div className="self-center">
+                    {!networkLayer && "loading..."}
+                </div>
+            </div>
             <PhaserLayer networkLayer={networkLayer} />
             <UI />
         </div>

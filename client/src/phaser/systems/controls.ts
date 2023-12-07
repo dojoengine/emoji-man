@@ -39,4 +39,32 @@ export const controls = (layer: PhaserLayer) => {
             move({ signer, direction: Direction.Right });
         }
     );
+
+    input.onKeyPress(
+        (keys) => keys.has("UP"),
+        () => {
+            move({ signer, direction: Direction.Up });
+        }
+    );
+
+    input.onKeyPress(
+        (keys) => keys.has("LEFT"),
+        () => {
+            move({ signer, direction: Direction.Left });
+        }
+    );
+
+    input.onKeyPress(
+        (keys) => keys.has("DOWN"),
+        () => {
+            move({ signer, direction: Direction.Down });
+        }
+    );
+
+    input.onKeyPress(
+        (keys) => keys.has("RIGHT"),
+        () => {
+            move({ signer, direction: Direction.Right });
+        }
+    );
 };

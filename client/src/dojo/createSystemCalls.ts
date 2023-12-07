@@ -66,8 +66,9 @@ export function createSystemCalls(
                     retryInterval: 100,
                 })
             );
-            // add half second timeout
 
+            // just wait until indexer - currently ~1 second.
+            // TODO: make this more robust
             await new Promise((resolve) => setTimeout(resolve, 1000));
         } catch (e) {
             console.log(e);

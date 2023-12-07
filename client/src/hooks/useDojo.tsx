@@ -5,22 +5,26 @@ import { store } from "../store/store";
 import { useBurnerManager } from "@dojoengine/create-burner";
 
 export const useDojo = () => {
-    const { networkLayer, phaserLayer } = store();
+    const layers = store((state) => {
+        return {
+            networkLayer: state.networkLayer,
+            phaserLayer: state.phaserLayer,
+        };
+    });
 
-    if (phaserLayer === null || networkLayer === null) {
+    if (!layers.phaserLayer || !layers.networkLayer) {
         throw new Error("Store not initialized");
     }
 
-    const { account, get, create, select, list, isDeploying, clear } =
-        useBurnerManager({
-            burnerManager: networkLayer.burnerManage,
-        });
+    const { get, create, select, list, isDeploying, clear } = useBurnerManager({
+        burnerManager: layers.networkLayer.burnerManage,
+    });
 
     return {
-        networkLayer: networkLayer as NetworkLayer,
-        phaserLayer: phaserLayer as PhaserLayer,
+        networkLayer: layers.networkLayer as NetworkLayer,
+        phaserLayer: layers.phaserLayer as PhaserLayer,
         account: {
-            account: account as Account,
+            account: layers.networkLayer.burnerManage.account as Account,
             get,
             create,
             select,
@@ -28,8 +32,8 @@ export const useDojo = () => {
             clear,
             isDeploying,
         },
-        systemCalls: networkLayer.systemCalls,
-        toriiClient: networkLayer.network.toriiClient,
-        contractComponents: networkLayer.network.contractComponents,
+        systemCalls: layers.networkLayer.systemCalls,
+        toriiClient: layers.networkLayer.network.toriiClient,
+        contractComponents: layers.networkLayer.network.contractComponents,
     };
 };
