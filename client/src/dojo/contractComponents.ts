@@ -11,7 +11,8 @@ export function defineContractComponents(world: World) {
                 {
                     metadata: {
                         name: "Energy",
-                        types: [],
+                        types: ["u8", "u8"],
+                        customTypes: [],
                     },
                 }
             );
@@ -20,14 +21,15 @@ export function defineContractComponents(world: World) {
             return defineComponent(
                 world,
                 {
-                    game: RecsType.Number,
+                    game: RecsType.BigInt,
                     number_of_players: RecsType.Number,
-                    available_ids: RecsType.NumberArray,
+                    available_ids: RecsType.BigInt,
                 },
                 {
                     metadata: {
                         name: "GameData",
-                        types: [],
+                        types: ["felt252", "u8", "u256"],
+                        customTypes: [],
                     },
                 }
             );
@@ -35,11 +37,12 @@ export function defineContractComponents(world: World) {
         PlayerAddress: (() => {
             return defineComponent(
                 world,
-                { id: RecsType.Number, player: RecsType.String },
+                { id: RecsType.Number, player: RecsType.BigInt },
                 {
                     metadata: {
                         name: "PlayerAddress",
-                        types: [],
+                        types: ["u8", "contractaddress"],
+                        customTypes: [],
                     },
                 }
             );
@@ -51,7 +54,8 @@ export function defineContractComponents(world: World) {
                 {
                     metadata: {
                         name: "PlayerAtPosition",
-                        types: [],
+                        types: ["u8", "u8", "u8"],
+                        customTypes: [],
                     },
                 }
             );
@@ -59,11 +63,12 @@ export function defineContractComponents(world: World) {
         PlayerID: (() => {
             return defineComponent(
                 world,
-                { player: RecsType.String, id: RecsType.Number },
+                { player: RecsType.BigInt, id: RecsType.Number },
                 {
                     metadata: {
                         name: "PlayerID",
-                        types: [],
+                        types: ["contractaddress", "u8"],
+                        customTypes: [],
                     },
                 }
             );
@@ -75,7 +80,8 @@ export function defineContractComponents(world: World) {
                 {
                     metadata: {
                         name: "Position",
-                        types: [],
+                        types: ["u8", "u8", "u8"],
+                        customTypes: [],
                     },
                 }
             );
@@ -87,7 +93,8 @@ export function defineContractComponents(world: World) {
                 {
                     metadata: {
                         name: "RPSType",
-                        types: ["Direction"],
+                        types: ["u8", "u8"],
+                        customTypes: [],
                     },
                 }
             );

@@ -11,7 +11,7 @@ export const createNetworkLayer = async () => {
     const initial_sync = () => {
         const models: any = [];
 
-        for (let i = 1; i <= 20; i++) {
+        for (let i = 1; i <= 30; i++) {
             let keys = [BigInt(i)];
             models.push({
                 model: network.contractComponents.Position,
@@ -26,14 +26,15 @@ export const createNetworkLayer = async () => {
                 keys,
             });
             models.push({
-                model: network.contractComponents.PlayerID,
-                keys,
-            });
-            models.push({
                 model: network.contractComponents.Energy,
                 keys,
             });
         }
+
+        models.push({
+            model: network.contractComponents.PlayerID,
+            keys: [BigInt(network.account.address)],
+        });
 
         return models;
     };

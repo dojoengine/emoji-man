@@ -25,7 +25,7 @@ export const move = (layer: PhaserLayer) => {
         },
         networkLayer: {
             components: { Position, RPSType, PlayerAddress },
-            account: { address: playerAddress }
+            account: { address: playerAddress },
         },
     } = layer;
 
@@ -42,11 +42,16 @@ export const move = (layer: PhaserLayer) => {
 
         const entity_uniform = (+entity).toString();
 
-        console.log(entity, entity_uniform, '\n------- pos/type triggered -------\n', position);
+        console.log(
+            entity,
+            entity_uniform,
+            "\n------- pos/type triggered -------\n",
+            position
+        );
 
         const player = objectPool.get(entity_uniform, "Sprite");
 
-        let animation = '';
+        let animation = "";
         switch (String.fromCharCode(rpsType.rps)) {
             case RPSSprites.Rock:
                 animation = Animations.RockIdle;
@@ -66,7 +71,10 @@ export const move = (layer: PhaserLayer) => {
             },
         });
 
-        const offsetPosition = { x: position?.x - ORIGIN_OFFSET || 0, y: position?.y - ORIGIN_OFFSET || 0 };
+        const offsetPosition = {
+            x: position?.x - ORIGIN_OFFSET || 0,
+            y: position?.y - ORIGIN_OFFSET || 0,
+        };
 
         let entity_addr = entity_addresses[entity_uniform];
         if (!entity_addr) {
@@ -74,7 +82,10 @@ export const move = (layer: PhaserLayer) => {
                 PlayerAddress,
                 entity.toString() as Entity
             );
-            entity_addr = entity_addresses[entity_uniform] = entity_addr_component?.player || '';
+            entity_addr = entity_addresses[entity_uniform] =
+                typeof entity_addr_component?.player === "bigint"
+                    ? entity_addr_component?.player.toString()
+                    : entity_addr_component?.player || "";
         }
 
         const pixelPosition = tileCoordToPixelCoord(
@@ -87,7 +98,12 @@ export const move = (layer: PhaserLayer) => {
             id: "position",
             once: (sprite) => {
                 sprite.setPosition(pixelPosition?.x, pixelPosition?.y);
-                if (playerAddress == entity_addr) {
+
+                // center the camera on the player
+                if (
+                    BigInt(playerAddress.toString()).toString() ==
+                    entity_addr.toString()
+                ) {
                     camera.centerOn(pixelPosition?.x, pixelPosition?.y);
                 }
             },

@@ -9,7 +9,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "codegen": "graphql-codegen",
-    "components": "npx @dojoengine/core ../emojiman/target/dev/manifest.json src/dojo/contractComponents.ts http://localhost:5050 0x1fad58d91d5d121aa6dc4d16c01a161e0441ef75fe7d31e3664a61e66022b1f"
+    "components": "npx @dojoengine/core ../contracts/target/release/manifest.json src/dojo/contractComponents.ts https://api.cartridge.gg/x/emoji-man-demo/katana 0x1fad58d91d5d121aa6dc4d16c01a161e0441ef75fe7d31e3664a61e66022b1f"
   },
   "dependencies": {
     "@dojoengine/core": "^0.1.58",
