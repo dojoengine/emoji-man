@@ -1,6 +1,7 @@
 import { Tileset } from "../../assets/world";
 import { PhaserLayer } from "..";
 import { snoise } from "@dojoengine/utils";
+import { MAP_AMPLITUDE } from "../config/constants";
 
 export function mapSystem(layer: PhaserLayer) {
     const {
@@ -13,7 +14,6 @@ export function mapSystem(layer: PhaserLayer) {
         },
     } = layer;
 
-    const MAP_AMPLITUDE = 16
     for (let x = 0; x < 50; x++) {
         for (let y = 0; y < 50; y++) {
             const coord = { x, y };
