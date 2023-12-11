@@ -27,7 +27,8 @@ mod actions {
 
     // import config
     use emojiman::config::{
-        INITIAL_ENERGY, RENEWED_ENERGY, MOVE_ENERGY_COST, X_RANGE, Y_RANGE, ORIGIN_OFFSET, MAP_AMPLITUDE
+        INITIAL_ENERGY, RENEWED_ENERGY, MOVE_ENERGY_COST, X_RANGE, Y_RANGE, ORIGIN_OFFSET,
+        MAP_AMPLITUDE
     };
 
     // import integer
@@ -136,7 +137,7 @@ mod actions {
             } else {
                 if encounter(world, id, adversary) {
                     // Move the player
-                    player_position_and_energy(world, id, x, y, energy.amt - move_energy_cost);
+                    player_position_and_energy(world, id, x, y, energy.amt + RENEWED_ENERGY);
                 }
             }
         }
@@ -231,12 +232,6 @@ mod actions {
         let ply_type = get!(world, player, (RPSType)).rps;
         let adv_type = get!(world, adversary, (RPSType)).rps;
         if encounter_win(ply_type, adv_type) {
-            let mut energy = get!(world, player, (Energy));
-
-            // Add energy to player
-            energy.amt += RENEWED_ENERGY;
-            set!(world, (energy));
-
             // adversary dies
             player_dead(world, adversary);
             true
@@ -255,12 +250,17 @@ mod actions {
             FixedTrait::from_felt(y.into()) / FixedTrait::from_felt(MAP_AMPLITUDE.into())
         );
 
-        let simplexValue = simplex3::noise(vec);
+        // compute simplex noise
+        let simplex_value = simplex3::noise(vec);
+
         // compute the value between -1 and 1 to a value between 0 and 1
-        let fixedValue = (simplexValue + FixedTrait::from_unscaled_felt(1)) / FixedTrait::from_unscaled_felt(2);
+        let fixed_value = (simplex_value + FixedTrait::from_unscaled_felt(1))
+            / FixedTrait::from_unscaled_felt(2);
 
         // make it an integer between 0 and 100
-        let value: u8 = FixedTrait::floor(fixedValue * FixedTrait::from_unscaled_felt(100)).try_into().unwrap();
+        let value: u8 = FixedTrait::floor(fixed_value * FixedTrait::from_unscaled_felt(100))
+            .try_into()
+            .unwrap();
 
         if (value > 70) {
             return 3; // Sea
