@@ -2,6 +2,11 @@
 version = 1
 
 [[package]]
+name = "cubit"
+version = "1.2.0"
+source = "git+https://github.com/influenceth/cubit?rev=b459053#b4590530d5aeae9aabd36740cc2a3d9e6adc5fde"
+
+[[package]]
 name = "dojo"
 version = "0.3.15"
 source = "git+https://github.com/dojoengine/dojo?tag=v0.3.15#cdbaca4121b1642e1a8ca40d6831bad73d28ed26"
@@ -18,5 +23,6 @@ source = "git+https://github.com/dojoengine/dojo?tag=v0.3.11#1e651b5d4d3b79b14a7
 name = "emojiman"
 version = "0.1.0"
 dependencies = [
+ "cubit",
  "dojo",
 ]

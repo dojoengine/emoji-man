@@ -9,6 +9,9 @@
 mod actions {
     use starknet::{ContractAddress, get_caller_address};
     use debug::PrintTrait;
+    use cubit::f128::procgen::simplex3;
+    use cubit::f128::types::fixed::FixedTrait;
+    use cubit::f128::types::vec3::Vec3Trait;
 
     // import actions
     use emojiman::interface::IActions;
@@ -24,7 +27,7 @@ mod actions {
 
     // import config
     use emojiman::config::{
-        INITIAL_ENERGY, RENEWED_ENERGY, MOVE_ENERGY_COST, X_RANGE, Y_RANGE, ORIGIN_OFFSET
+        INITIAL_ENERGY, RENEWED_ENERGY, MOVE_ENERGY_COST, X_RANGE, Y_RANGE, ORIGIN_OFFSET, MAP_AMPLITUDE
     };
 
     // import integer
@@ -99,9 +102,6 @@ mod actions {
             // player position and energy
             let (pos, energy) = get!(world, id, (Position, Energy));
 
-            // assert energy
-            assert(energy.amt >= MOVE_ENERGY_COST, 'Not enough energy');
-
             // Clear old position
             clear_player_at_position(world, pos.x, pos.y);
 
@@ -119,13 +119,24 @@ mod actions {
 
             // resolve encounter
             let adversary = player_at_position(world, x, y);
+
+            let tile = tile_at_position(x - ORIGIN_OFFSET.into(), y - ORIGIN_OFFSET.into());
+            let mut move_energy_cost = MOVE_ENERGY_COST;
+            if tile == 3 {
+                // Use more energy to go through ocean tiles
+                move_energy_cost = MOVE_ENERGY_COST * 3;
+            }
+
+            // assert energy
+            assert(energy.amt >= move_energy_cost, 'Not enough energy');
+
             if 0 == adversary {
                 // Empty cell, move
-                player_position_and_energy(world, id, x, y, energy.amt - MOVE_ENERGY_COST);
+                player_position_and_energy(world, id, x, y, energy.amt - move_energy_cost);
             } else {
                 if encounter(world, id, adversary) {
                     // Move the player
-                    player_position_and_energy(world, id, x, y, energy.amt - MOVE_ENERGY_COST);
+                    player_position_and_energy(world, id, x, y, energy.amt - move_energy_cost);
                 }
             }
         }
@@ -233,6 +244,32 @@ mod actions {
             // player dies
             player_dead(world, player);
             false
+        }
+    }
+
+    // @dev: Returns tile id at position
+    fn tile_at_position(x: u8, y: u8) -> u8 {
+        let vec = Vec3Trait::new(
+            FixedTrait::from_felt(x.into()) / FixedTrait::from_felt(MAP_AMPLITUDE.into()),
+            FixedTrait::from_felt(0),
+            FixedTrait::from_felt(y.into()) / FixedTrait::from_felt(MAP_AMPLITUDE.into())
+        );
+
+        let simplexValue = simplex3::noise(vec);
+        // compute the value between -1 and 1 to a value between 0 and 1
+        let fixedValue = (simplexValue + FixedTrait::from_unscaled_felt(1)) / FixedTrait::from_unscaled_felt(2);
+
+        // make it an integer between 0 and 100
+        let value: u8 = FixedTrait::floor(fixedValue * FixedTrait::from_unscaled_felt(100)).try_into().unwrap();
+
+        if (value > 70) {
+            return 3; // Sea
+        } else if (value > 60) {
+            return 2; // Desert
+        } else if (value > 53) {
+            return 1; // Forest
+        } else {
+            return 0; // Plain
         }
     }
 
