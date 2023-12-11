@@ -48,65 +48,74 @@ git clone https://github.com/dojoengine/emoji-man
 ```
 
 The initial steps include:
-a. Project initialization
-b. Exploring the project structure
-c. Understanding Scarb
-d. Introduction to Cairo
+
+- a. Project initialization
+- b. Exploring the project structure
+- c. Understanding Scarb
+- d. Introduction to Cairo
 
 ### Step 2: Creating Your First Model
 
 Develop your first model by:
-a. Conceptualizing the model structure
-b. Creating a model and understanding state structures, with insights on [ECS](https://github.com/SanderMertens/ecs-faq)
-c. Learning how Dojo is not purely ECS-based
+
+- a. Conceptualizing the model structure
+- b. Creating a model and understanding state structures, with insights on [ECS](https://github.com/SanderMertens/ecs-faq)
+- c. Learning how Dojo is not purely ECS-based
 
 ### Step 3: Implementing Your First System
 
 This involves:
-a. System creation as a contract
-b. Adding a new system
-c. Building and testing with `sozo`
+
+- a. System creation as a contract
+- b. Adding a new system
+- c. Building and testing with `sozo`
 
 ### Step 4: Integrating a New Model into a System
 
 Proceed by:
-a. Adding a new model
-b. Implementing a new trait
-c. Utilizing the trait in a system
-d. Building and verifying the integration
+
+- a. Adding a new model
+- b. Implementing a new trait
+- c. Utilizing the trait in a system
+- d. Building and verifying the integration
 
 ### Step 5: Exploring Sozo and the CLI
 
 Delve deeper into:
-a. `sozo` functionalities
-b. Launching `katana`
-c. Setting up `torii` and connecting to your World
+
+- a. `sozo` functionalities
+- b. Launching `katana`
+- c. Setting up `torii` and connecting to your World
 
 Refer to the documentation for [`sozo`](https://book.dojoengine.org/toolchain/sozo/reference.html), [`katana`](https://book.dojoengine.org/toolchain/katana/reference.html), and [`torii`](https://book.dojoengine.org/toolchain/torii/reference.html).
 
 ### Step 6: Code Cleanup
 
 Focus on:
-a. Refining and organizing the code
+
+- a. Refining and organizing the code
 
 ### Step 7: Testing
 
 Conduct tests by:
-a. Establishing a testing structure
-b. Writing and executing World deployment tests
+
+- a. Establishing a testing structure
+- b. Writing and executing World deployment tests
 
 ### Step 8: Deploying to Katana
 
 Learn about:
-a. Deployment processes and debugging techniques
+
+- a. Deployment processes and debugging techniques
 
 ### Step 9: Running the Client
 
 Steps include:
-a. Launching the client
-b. Generating models via npm
-c. Understanding client architecture
-d. Learning about the `torii` client
+-a. Launching the client
+
+- b. Generating models via npm
+- c. Understanding client architecture
+- d. Learning about the `torii` client
 
 ### Step 10: Utilizing `slot` for Remote Deployments
 
