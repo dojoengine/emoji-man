@@ -70,14 +70,14 @@ export function createSystemCalls(
             );
 
             // logging the transaction hash
-            console.log(
-                await signer.waitForTransaction(transaction_hash, {
-                    retryInterval: 100,
-                })
-            );
+            // console.log(
+            //     await signer.waitForTransaction(transaction_hash, {
+            //         retryInterval: 100,
+            //     })
+            // );
 
-            // just wait until indexer - currently ~1 second.
-            // TODO: make this more robust
+            // just wait until indexer sync - currently ~1 second.
+            // TODO: v0.4.0 will resolve to indexer
             await new Promise((resolve) => setTimeout(resolve, 1000));
         } catch (e) {
             console.log(e);
