@@ -4,7 +4,7 @@ version = 1
 [[package]]
 name = "cubit"
 version = "1.2.0"
-source = "git+https://github.com/influenceth/cubit#b4590530d5aeae9aabd36740cc2a3d9e6adc5fde"
+source = "git+https://github.com/influenceth/cubit?rev=b459053#b4590530d5aeae9aabd36740cc2a3d9e6adc5fde"
 
 [[package]]
 name = "dojo"

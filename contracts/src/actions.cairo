@@ -121,22 +121,22 @@ mod actions {
             let adversary = player_at_position(world, x, y);
 
             let tile = tile_at_position(x - ORIGIN_OFFSET.into(), y - ORIGIN_OFFSET.into());
-            let mut moveEnergyCost = MOVE_ENERGY_COST;
+            let mut move_energy_cost = MOVE_ENERGY_COST;
             if tile == 3 {
                 // Use more energy to go through ocean tiles
-                moveEnergyCost = MOVE_ENERGY_COST * 3;
+                move_energy_cost = MOVE_ENERGY_COST * 3;
             }
 
             // assert energy
-            assert(energy.amt >= moveEnergyCost, 'Not enough energy');
+            assert(energy.amt >= move_energy_cost, 'Not enough energy');
 
             if 0 == adversary {
                 // Empty cell, move
-                player_position_and_energy(world, id, x, y, energy.amt - moveEnergyCost);
+                player_position_and_energy(world, id, x, y, energy.amt - move_energy_cost);
             } else {
                 if encounter(world, id, adversary) {
                     // Move the player
-                    player_position_and_energy(world, id, x, y, energy.amt - moveEnergyCost);
+                    player_position_and_energy(world, id, x, y, energy.amt - move_energy_cost);
                 }
             }
         }
