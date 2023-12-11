@@ -1,164 +1,155 @@
 ![image](./.github/image.png)
 
-## Emoji Man
+# Emoji Man - 🪨 or 📄 or ✂️
 
-1. Spawn 🪨 or 📄 or ✂️
-2. Try and survive. RPS style mechanics.
+## Overview
 
-### Resources:
+Emoji Man is a game based on Rock-Paper-Scissors (RPS) mechanics where players spawn as one of the following: a Rock 🪨, Paper 📄, or Scissors ✂️. The goal is to survive and thrive using the classic RPS rules.
 
-- [dojobook](https://book.dojoengine.org/)
-- [Cairo book](https://github.com/cairo-book/cairo-book.github.io/)
-- [discord](https://discord.gg/dojoengine)
-- [awesome dojo](https://github.com/dojoengine/awesome-dojo)
+## Resources
 
-## Getting started in the Demo
+- [Dojo Book](https://book.dojoengine.org/)
+- [Cairo Book](https://github.com/cairo-book/cairo-book.github.io/)
+- [Dojo Engine Discord](https://discord.gg/dojoengine)
+- [Awesome Dojo](https://github.com/dojoengine/awesome-dojo)
+
+## Getting Started with the Demo
 
 ### Prerequisites
 
-Install Dojo:
+To begin, install Dojo using the following command:
 
-```
+```bash
 curl -L https://install.dojoengine.org | bash
 ```
 
-Then run the command:
+After installation, run this command to set up:
 
-```
+```bash
 dojoup
 ```
 
-Running `dojoup` command will install the latest stable release of the Dojo (as of now [`v0.3.15`](https://github.com/dojoengine/dojo/releases/tag/v0.3.10)) tool suite.
+This will install the latest stable release of the Dojo tool suite, currently version [`v0.3.15`](https://github.com/dojoengine/dojo/releases/tag/v0.3.10).
 
-### (Optional) Try out the starter first
+### Optional: Starter Project
 
-`git clone https://github.com/dojoengine/dojo-starter`
+For a foundational start, clone the Dojo starter project:
 
-### Step 1: Init main project
+```bash
+git clone https://github.com/dojoengine/dojo-starter
+```
 
-`git clone https://github.com/dojoengine/emoji-man`
+### Step 1: Initialize the Main Project
 
-a. Initialising the project  
-b. Looking at the project structure  
-c. Looking at the Scarb  
-d. Cairo explanation
+Clone the Emoji Man project:
 
-### Step 2: Your first model
+```bash
+git clone https://github.com/dojoengine/emoji-man
+```
 
-a. Thinking about model structure  
-b. Creating a model and their state structure. 101 on [ECS](https://github.com/SanderMertens/ecs-faq)  
-c. Dojo is not purely ECS
+The initial steps include:
+a. Project initialization
+b. Exploring the project structure
+c. Understanding Scarb
+d. Introduction to Cairo
 
-### Step 3: Your first system
+### Step 2: Creating Your First Model
 
-a. Creating a system - it's just a contract  
-b. Adding a new system  
-c. Run building via `sozo` to test
+Develop your first model by:
+a. Conceptualizing the model structure
+b. Creating a model and understanding state structures, with insights on [ECS](https://github.com/SanderMertens/ecs-faq)
+c. Learning how Dojo is not purely ECS-based
 
-### Step 4: Adding a new model to a system
+### Step 3: Implementing Your First System
 
-a. Adding a new model  
-b. Adding a trait!!  
-c. Using the trait in a system  
-d. Running build to check
+This involves:
+a. System creation as a contract
+b. Adding a new system
+c. Building and testing with `sozo`
 
-### Step 5: Sozo and the cli
+### Step 4: Integrating a New Model into a System
 
-a. Deeper into `sozo`  
-b. Spinning up `katana`  
-c. Spinning up `torii` and pointing to your World
+Proceed by:
+a. Adding a new model
+b. Implementing a new trait
+c. Utilizing the trait in a system
+d. Building and verifying the integration
 
-Checkout out [`sozo`](https://book.dojoengine.org/toolchain/sozo/reference.html), [`katana`](https://book.dojoengine.org/toolchain/katana/reference.html), and [`torii`](https://book.dojoengine.org/toolchain/torii/reference.html) documentations.
+### Step 5: Exploring Sozo and the CLI
 
-### Step 6: Clean up
+Delve deeper into:
+a. `sozo` functionalities
+b. Launching `katana`
+c. Setting up `torii` and connecting to your World
 
-a. Clean up of code
+Refer to the documentation for [`sozo`](https://book.dojoengine.org/toolchain/sozo/reference.html), [`katana`](https://book.dojoengine.org/toolchain/katana/reference.html), and [`torii`](https://book.dojoengine.org/toolchain/torii/reference.html).
+
+### Step 6: Code Cleanup
+
+Focus on:
+a. Refining and organizing the code
 
 ### Step 7: Testing
 
-a. Testing structure  
-b. Writing a World deploy test  
-c. Running the test
+Conduct tests by:
+a. Establishing a testing structure
+b. Writing and executing World deployment tests
 
 ### Step 8: Deploying to Katana
 
-a. Deploying and debugging
+Learn about:
+a. Deployment processes and debugging techniques
 
-### Step 8: Client running
+### Step 9: Running the Client
 
-a. Running the client  
-b. Generating models via npm  
-c. Explaining the client structure - this is just one client, you can have many  
-d. Explaining `torii` client
+Steps include:
+a. Launching the client
+b. Generating models via npm
+c. Understanding client architecture
+d. Learning about the `torii` client
 
-### Step 9: New model and syncing
+### Step 10: Utilizing `slot` for Remote Deployments
 
-a. Adding new model to contracts  
-b. resyncing the client
+Understand [slot](https://github.com/cartridge-gg/slot) and its applications. Install `slot` and log in with these commands:
 
-### Step 10: Spinning up `slot` to deploy `katana` and `torii` instances remotely
-
-a. What is [slot](https://github.com/cartridge-gg/slot)?
-
-Run the following commands to install `slot`:
-
-```
+```bash
 curl -L https://slot.cartridge.sh | bash
-```
-
-```bash
 slotup
-```
-
-Log in to `slot`:
-
-```bash
 slot auth login
-
-# Slot Auth debug (if old auth credentials):
+# For old auth credentials debug:
 rm ~/Library/Application\ Support/slot/credentials.json
 ```
 
-b. Deployin
+Deployment steps:
 
 ```bash
+# Create and manage deployments
 slot deployments create emoji-man-demo katana
 
-# get credentials and save in Scarb.toml
+# Retrieve and save credentials
 slot deployments logs emoji-man-demo katana -f
 
-# build a release
+# Build and migrate releases
 sozo --release build
-
-# migrate release to katana
 sozo --release migrate
 
-# setup torri and point to the world
+# Set up torii and connect to the world
 slot deployments create emoji-man-demo torii --rpc https://api.cartridge.gg/x/emoji-man-demo/katana --world 0x1fad58d91d5d121aa6dc4d16c01a161e0441ef75fe7d31e3664a61e66022b1f --start-block 1
 
-# set auth (you will need to update the rpc_url to match your release)
+# Update authentication for the release
 ./scripts/default_auth.sh release
 ```
 
-d. Deploying a client to vercel - `use your own vercel account`
+### Step 11:
 
-de. Multiplayer - share live link
+Deploy to vercel.
 
 ## Next Steps
 
-### Bonus 1: Optimistc Rendering
-
-- Use RECS optimisc rendering to render the player in the client before the tx is confirmed
-
-### Bonus 2: Show energy levels in the client
-
-- Use RECS to show the energy levels in the client
-
-### Bonus 3: Noise in map in Cairo and in Client
-
-- Use [cubit](https://github.com/influenceth/cubit) simplex noise to restrict movement over mountains
-- [noise](https://github.com/influenceth/sdk/blob/master/src/utils/simplex.js)
-
-### Bonus 4: Add a collectables
+### Bonus 1: Add a collectables
 
 - Add a way to spawn collectables on the map and allow players to collect them
+
+### Bonus 2: Leaderboard
+
+- Add UI in client to show total amount of killed types.

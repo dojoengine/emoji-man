@@ -12,7 +12,7 @@ export const createNetworkLayer = async () => {
 
     const { burnerManager, toriiClient, account } = network;
 
-    // @dev: This is a hack to get around the fact that the sync manager
+    // @dev: This is a hack as we have to manually add entities to the world in order to sync.
     // this is updated in 0.4.0 into a single line and syncs all the world.
     // TODO: remove in 0.4.0
     const initial_sync = () => {
