@@ -1,5 +1,7 @@
 ![image](./.github/image.png)
 
+![screenshot](screenshot.png)
+
 # Emoji Man - 🪨 or 📄 or ✂️
 
 ## Overview
