@@ -1,8 +1,8 @@
 {
   "world": {
-    "name": "world",
-    "address": "0x1fad58d91d5d121aa6dc4d16c01a161e0441ef75fe7d31e3664a61e66022b1f",
-    "class_hash": "0x99b08b2ff33750916e36b5e241b5d4a63e8d48862bf90a68fec2ff58a8de6",
+    "name": "dojo::world::world",
+    "address": "0x4e883243427b73a7fdf52f2db47f1e4f4130c79bd079aa3874b1dd336fee724",
+    "class_hash": "0x5ac623f0c96059936bd2d0904bdd31799e430fe08a0caff7a5f497260b16497",
     "abi": [
       {
         "type": "impl",
@@ -783,9 +783,9 @@
     "computed": []
   },
   "executor": {
-    "name": "executor",
+    "name": "dojo::executor::executor",
     "address": null,
-    "class_hash": "0x54ee9d99457d82d53e21030920f7e6f43509b98ea62282b5c2520050264a28c",
+    "class_hash": "0x585507fa2818fe78e66da6ea4c5915376739f4abf509d41153f60a16cb1f68d",
     "abi": [
       {
         "type": "impl",
@@ -844,8 +844,8 @@
     "computed": []
   },
   "base": {
-    "name": "base",
-    "class_hash": "0x77638e9a645209ac1e32e143bfdbfe9caf723c4f7645fcf465c38967545ea2f",
+    "name": "dojo::base::base",
+    "class_hash": "0x6c458453d35753703ad25632deec20a29faf8531942ec109e6eb0650316a2bc",
     "abi": [
       {
         "type": "impl",
@@ -947,9 +947,9 @@
   },
   "contracts": [
     {
-      "name": "actions",
-      "address": "0x7d3bc85f0cb2972a3f2453ab89ca1d7e65d9a3c6de0827095a4e4819257aada",
-      "class_hash": "0x5bd9cb56d900341fccdeacaa8d31fe20e849935fcaf7ea46647c70b3992b8e6",
+      "name": "emojiman::actions::actions",
+      "address": "0x2e30a7d7855decf40101136079f3bd9f86d97b5cad229ce8e6b2ce7efe6e624",
+      "class_hash": "0x13219109cf90d5cdc6ce78f5d1aa54c97358c61e2dfd1f1b05a9940ee92620f",
       "abi": [
         {
           "type": "impl",
@@ -1122,30 +1122,14 @@
           ]
         }
       ],
-      "reads": [
-        "Energy",
-        "GameData",
-        "PlayerAddress",
-        "PlayerAtPosition",
-        "PlayerID",
-        "Position",
-        "RPSType"
-      ],
-      "writes": [
-        "Energy",
-        "GameData",
-        "PlayerAddress",
-        "PlayerAtPosition",
-        "PlayerID",
-        "Position",
-        "RPSType"
-      ],
+      "reads": [],
+      "writes": [],
       "computed": []
     }
   ],
   "models": [
     {
-      "name": "Energy",
+      "name": "emojiman::models::energy",
       "members": [
         {
           "name": "id",
@@ -1158,7 +1142,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x2d72c9256ab5ef224f49b455f548994745a2791a0cc4a37f3b0c98dafdd1d86",
+      "class_hash": "0x458e972c72ec0715d985c3f09356807bc48edde2715e9bc372a9f31c53fae26",
       "abi": [
         {
           "type": "function",
@@ -1322,7 +1306,7 @@
       ]
     },
     {
-      "name": "GameData",
+      "name": "emojiman::models::game_data",
       "members": [
         {
           "name": "game",
@@ -1340,7 +1324,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x7f833dfd481ba795f4f14f5b41ee72c6a9870f5970d6f5e2b7bede43c7c9f53",
+      "class_hash": "0x667b0e5f7c1c75e18095805266579fe1a09ad251a7e67350629f317de52f7da",
       "abi": [
         {
           "type": "function",
@@ -1504,7 +1488,7 @@
       ]
     },
     {
-      "name": "PlayerAddress",
+      "name": "emojiman::models::player_address",
       "members": [
         {
           "name": "id",
@@ -1517,7 +1501,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x73214e294677f62b348d4aa2bf7d80b8e7bdcfb0a3a267163acd38579c9eb7a",
+      "class_hash": "0x352300427a5e8d8a3ddf855ed541799a2aa7f0be52c646962f53ed05b1e1211",
       "abi": [
         {
           "type": "function",
@@ -1681,7 +1665,7 @@
       ]
     },
     {
-      "name": "PlayerAtPosition",
+      "name": "emojiman::models::player_at_position",
       "members": [
         {
           "name": "x",
@@ -1699,7 +1683,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x3c1c0112b2394557a2b5ef1980594515e25974b06b865bc8a1d2c3439783c77",
+      "class_hash": "0x4ff859e46583525e2d3af30860b60c1bc9f644960148b7f3872e4a3e85806e3",
       "abi": [
         {
           "type": "function",
@@ -1863,7 +1847,7 @@
       ]
     },
     {
-      "name": "PlayerID",
+      "name": "emojiman::models::player_id",
       "members": [
         {
           "name": "player",
@@ -1876,7 +1860,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x5686bd62a4a4249b824136ce6b209d63d362a500dfe0b20b043a42722c9d1c7",
+      "class_hash": "0x4a83b14bdf82e7acb77d6c80a72d37f90e327496d616bd269f82702133c9493",
       "abi": [
         {
           "type": "function",
@@ -2040,7 +2024,7 @@
       ]
     },
     {
-      "name": "Position",
+      "name": "emojiman::models::position",
       "members": [
         {
           "name": "id",
@@ -2058,7 +2042,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x48b2bbf7002535eb16bb0fad6a4d6f769c5c9d78b1bc3a09dcbe6880640cf9f",
+      "class_hash": "0x753d4a9bc97c8da132b3374b5e7fc9bfbd5fb20ed17635eecae5e9beee37257",
       "abi": [
         {
           "type": "function",
@@ -2222,7 +2206,7 @@
       ]
     },
     {
-      "name": "RPSType",
+      "name": "emojiman::models::rps_type",
       "members": [
         {
           "name": "id",
@@ -2235,7 +2219,7 @@
           "key": false
         }
       ],
-      "class_hash": "0x3220ddcfb0227ba89aa4f2d7ab60037daf3d4f74f8904ab9910ccca88f39367",
+      "class_hash": "0x69365c7ca4e9917ed945c7301ba168f0995c397b97238cee64df116a8026247",
       "abi": [
         {
           "type": "function",

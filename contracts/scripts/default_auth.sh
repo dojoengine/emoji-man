@@ -16,7 +16,7 @@ fi
 
 export WORLD_ADDRESS=$(cat $manifest_file | jq -r '.world.address')
 
-export ACTIONS_ADDRESS=$(cat $manifest_file | jq -r '.contracts[] | select(.name == "actions" ).address')
+export ACTIONS_ADDRESS=$(cat $manifest_file | jq -r '.contracts[] | select(.name == "emojiman::actions::actions" ).address')
 
 echo "---------------------------------------------------------------------------"
 echo world : $WORLD_ADDRESS 

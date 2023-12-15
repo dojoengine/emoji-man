@@ -14,7 +14,9 @@ export function createSystemCalls(
 ) {
     const spawn = async (props: SpawnSystemProps) => {
         try {
-            await execute(props.signer, "actions", "spawn", [props.rps]);
+            await execute(props.signer, "emojiman::actions::actions", "spawn", [
+                props.rps,
+            ]);
         } catch (e) {
             console.error(e);
         }
@@ -64,7 +66,7 @@ export function createSystemCalls(
         try {
             const { transaction_hash } = await execute(
                 signer,
-                "actions",
+                "emojiman::actions::actions",
                 "move",
                 [direction]
             );

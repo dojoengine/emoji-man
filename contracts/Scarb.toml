@@ -1,5 +1,5 @@
 [package]
-cairo-version = "2.2.0"
+cairo-version = "2.4.0"
 name = "emojiman"
 version = "0.1.0"
 
@@ -7,8 +7,8 @@ version = "0.1.0"
 sierra-replace-ids = true
 
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.3.15" }
-cubit = { git = "https://github.com/influenceth/cubit", rev = "b459053" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.4.1" }
+cubit = { git = "https://github.com/akhercha/cubit", rev = "d3869a3f0c47e5ed229bbbfe2fce3fc0510cbc8a" }
 
 [[target.dojo]]
 
@@ -16,13 +16,13 @@ cubit = { git = "https://github.com/influenceth/cubit", rev = "b459053" }
 initializer_class_hash = "0xbeef"
 
 [tool.dojo.env]
-# rpc_url = "http://localhost:5050/"
+rpc_url = "http://localhost:5050/"
 # Default account for katana with seed = 0
-# account_address = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
-# private_key = "0x1800000000300000180000000000030000000000003006001800006600"
+account_address = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+private_key = "0x1800000000300000180000000000030000000000003006001800006600"
 
 # slot deploy
-rpc_url = "https://api.cartridge.gg/x/emoji-man-demo/katana"
-account_address = "0x7610cb34d07c1e7036e71f69da5516a986e0c203163d28b55b56f5c30659651"
-private_key = "0xf622cecde30422abe973047f0d3001b435301eaef9e1495fa61cb31e9dffc2"
-world = "0x46da19a353ccab7f5f4882d1157117cb19d0bd11b51c20910dba750f24cf91e"
+# rpc_url = "https://api.cartridge.gg/x/emoji-man-demo/katana"
+# account_address = "0x7610cb34d07c1e7036e71f69da5516a986e0c203163d28b55b56f5c30659651"
+# private_key = "0xf622cecde30422abe973047f0d3001b435301eaef9e1495fa61cb31e9dffc2"
+# world = "0x46da19a353ccab7f5f4882d1157117cb19d0bd11b51c20910dba750f24cf91e"
