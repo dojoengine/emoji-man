@@ -73,7 +73,6 @@ mod tests {
         let player_id = get!(world, caller, (PlayerID)).id;
         assert(1 == player_id, 'incorrect id');
 
-        // Get player from id
         let (position, rps_type, energy) = get!(world, player_id, (Position, RPSType, Energy));
         assert(0 < position.x, 'incorrect position.x');
         assert(0 < position.y, 'incorrect position.y');
@@ -108,13 +107,13 @@ mod tests {
         let (caller, world, actions_) = spawn_world();
 
         actions_.spawn('r');
-        // Get player ID
+        // Get player position
         let pos_p1 = get!(world, get!(world, caller, (PlayerID)).id, (Position));
 
         let caller = starknet::contract_address_const::<'jim'>();
         starknet::testing::set_contract_address(caller);
         actions_.spawn('r');
-        // Get player ID
+        // Get player position
         let pos_p2 = get!(world, get!(world, caller, (PlayerID)).id, (Position));
 
         assert(pos_p1.x != pos_p2.x, 'spawn pos.x same');
@@ -135,7 +134,7 @@ mod tests {
         let (x_, y_) = actions::spawn_coords(world, caller.into(), id);
 
         assert(x != x_, 'spawn pos.x same');
-        assert(y != y_, 'spawn pos.x same');
+        assert(y != y_, 'spawn pos.y same');
     }
 
     #[test]
