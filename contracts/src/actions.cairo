@@ -154,13 +154,14 @@ mod actions {
 
             // reset player count
             let mut game_data = get!(world, GAME_DATA_KEY, (GameData));
+            let total_players = game_data.number_of_players;
             game_data.number_of_players = 0;
             set!(world, (game_data));
 
             // Kill off all players
             let mut i = 1;
             loop {
-                if i > 20 {
+                if i > total_players {
                     break;
                 }
                 player_dead(world, i);
